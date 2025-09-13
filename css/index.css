@@ -358,7 +358,7 @@ Card一覧
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   margin-bottom: 0.5rem;
   font-weight: 400;
@@ -379,6 +379,17 @@ Card一覧
   align-items: center;
 }
 
+.card-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+}
+
+.card-icons .post-view {
+  display: flex;
+  gap: 1%;
+}
 /*-------------------------------------------
 footer
 -------------------------------------------*/
@@ -422,10 +433,7 @@ footer {
     max-width: 20rem;
   }
   .card-text {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     font-size: 0.75rem;
-    -webkit-line-clamp: 5; /* 行数調整可 */
   }
   .info-underline {
     width: 90%;

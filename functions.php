@@ -45,15 +45,20 @@ function add_scripts()
     wp_deregister_script('jquery');
 
 
-    //JSの読み込み
-
-    //jqueryを登録
+    // jQuery を CDN から読み込む
     wp_register_script(
-        'jquery_script',
+        'jquery',
         'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
         array(),
-        '1.0'
+        '3.6.0',
+        true
     );
+
+    // WordPress 標準 jQuery をそのまま使う
+    wp_enqueue_script('jquery');
+
+    // noConflict モードで jQuery を $ に割り当てない
+    // wp_add_inline_script('jquery', 'jQuery.noConflict();');
 
     // main.jsを最後に実行
     wp_enqueue_script(
@@ -72,3 +77,10 @@ function add_scripts()
 
 // サムネイル設定を有効化
 add_theme_support( 'post-thumbnails' );
+
+
+
+
+
+
+

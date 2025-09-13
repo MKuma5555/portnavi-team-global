@@ -8,8 +8,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
-  padding: 2rem 0;
+  padding: 2rem 6%;
   top: 0;
   left: 0;
   right: 0;
@@ -18,18 +17,14 @@ header {
   display: flex;
   gap: 2rem;
   align-items: center;
-  /* justify-content: end;
-  right: 0;
-  margin-right: -9rem; */
 }
 .nav-menu {
   display: flex;
   gap: 3rem;
-  /* justify-content: space-between; */
   align-items: center;
 }
 .nav-menu li:last-child {
-  margin-right: 0; /* 余分なマージンを削除 */
+  margin-right: 0;
 }
 
 .site-title a {
@@ -39,7 +34,6 @@ header {
   font-size: clamp(1.2rem, 5vw, 2.5rem);
   line-height: 1px;
   display: block;
-  padding: clamp(1.2rem, 5vw, 2.5rem);
 }
 
 /*----------　ヘッダー　検索パート　　----------------*/
@@ -49,7 +43,7 @@ header {
   margin-right: 10px;
 }
 .search_container input[type="text"] {
-  border-bottom: 1px solid #4a2b00;
+  border-bottom: 1px solid var(--color-main);
   height: 2em;
   width: 245px;
   overflow: hidden;
@@ -63,7 +57,7 @@ header {
   font-size: 1.3em;
   border: none;
   background: none;
-  color: #4a2b00;
+  color: var(--color-main);
   outline: none;
   display: inline-block;
   vertical-align: middle;
@@ -74,7 +68,7 @@ header {
 -------------------------------------------*/
 .side-nav {
   position: fixed;
-  top: 150px; /* ヘッダーの下から表示 */
+  top: 150px;
   right: 0;
   background: #f7f7f7;
   flex-direction: row;
@@ -87,7 +81,7 @@ header {
   writing-mode: vertical-rl;
   text-orientation: upright;
   margin-bottom: 2rem;
-  border: 1px solid #4a2b00;
+  border: 1px solid var(--color-main);
 }
 /* インデックスパネルはデフォルト非表示 */
 .index-panel {
@@ -144,7 +138,7 @@ header {
   left: 50%;
   transform: translateX(-50%);
   width: 24px;
-  background-color: #4a2b00;
+  background-color: var(--color-main);
   transition: 0.4s;
 }
 .hamburger__line:before,
@@ -154,7 +148,7 @@ header {
   height: 100%;
   position: absolute;
   width: 100%;
-  background-color: #4a2b00;
+  background-color: var(--color-main);
   transition: inherit;
 }
 .hamburger__line:before {
@@ -173,7 +167,7 @@ header {
 .hamburger__text::before {
   content: "メニュー";
   text-align: center;
-  color: #4a2b00;
+  color: var(--color-main);
   font-size: 10px;
   font-weight: 900;
 }
@@ -213,7 +207,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #4a2b00;
+  color: var(--color-main);
   font-weight: 900;
   transition: color 0.4s;
   font-size: 0.875rem;
@@ -272,7 +266,117 @@ header {
   margin-top: 21px;
 }
 .accordion__link {
-  color: #4a2b00;
+  color: var(--color-main);
+}
+
+/*-------------------------------------------
+ ページの詳細トップパート
+-------------------------------------------*/
+.info-top {
+  margin-bottom: 3.5rem;
+  margin: 0 3%;
+}
+.info-underline {
+  margin: 4% 0;
+  border-bottom: 2px solid var(--color-main);
+}
+
+/*-------------------------------------------
+Card一覧
+-------------------------------------------*/
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5%;
+  margin-bottom: 150px;
+  /* overflow: visible; */
+}
+
+.card {
+  max-width: 24rem;
+  width: 100%;
+  height: 400px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem 5%;
+  cursor: pointer;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s, transform 0.3s;
+
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.24);
+  transform: translate(0, -2px);
+  height: auto; /* ← ホバーしたら高さを伸ばす */
+  min-height: 400px; /* ← 最低400pxはキープ */
+}
+.card-image {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 3% 3% 0 3%;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222222;
+  margin-bottom: 0.5rem;
+}
+
+.card-top .card-tags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card-top .card-tags li {
+  border: 0.5px solid var(--color-main);
+  border-radius: 0.5rem;
+  padding: 0 0.25rem;
+}
+.card-title {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-main);
+}
+
+.card-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: #6b7280;
+  transition: all 0.3s ease;
+}
+
+.card:hover .card-text {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  white-space: normal;
+}
+
+.card-bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /*-------------------------------------------
@@ -280,10 +384,10 @@ footer
 -------------------------------------------*/
 footer {
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  height: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 /*-------------------------------------------
@@ -305,6 +409,30 @@ footer {
   header .pc ul {
     display: none;
   }
+
+  .cards-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 0 auto;
+  }
+  .card {
+    max-width: 20rem;
+  }
+  .card-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    font-size: 0.75rem;
+    -webkit-line-clamp: 5; /* 行数調整可 */
+  }
+  .info-underline {
+    width: 90%;
+  }
+  .info-top p {
+    font-size: 2.8vw;
+  }
 }
 
 @media (min-width: 769px) {
@@ -322,4 +450,7 @@ footer {
   header .hamburger {
     display: block;
   }
+}
+
+@media (max-width: 480px) {
 }

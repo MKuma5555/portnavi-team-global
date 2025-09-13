@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <header class="wrapper">
+    <header class="">
       <div class="site-title">
         <h1 class="site-title monoton-regular">
           <a href="<?php echo esc_url(home_url());?>">PortNavi</a>

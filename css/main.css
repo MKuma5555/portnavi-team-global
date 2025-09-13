@@ -1,12 +1,22 @@
 @charset "UTF-8";
 
+/* カラー配色共通化 */
+:root {
+  --color-main: #4a2b00;
+}
+
+html,
 body {
-  color: #4a2b00;
+  height: 100%;
+  margin: 0;
+}
+body {
+  color: var(--color-main);
   font-size: 0.875rem;
   min-height: 100vh;
 }
 a {
-  color: #4a2b00;
+  color: var(--color-main);
   text-decoration: none;
 }
 a:hover {
@@ -19,10 +29,16 @@ li {
   list-style: none;
 }
 
-/* .wrapper {
-  max-width: 1360px;
+.wrapper {
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 4%;
-} */
+}
+
+.inner-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
 
 /* タイトルのフォント */

@@ -64,14 +64,11 @@ function add_scripts()
     wp_enqueue_script(
         'main_script',
         get_template_directory_uri() . '/js/main.js',
-        array('jquery_script'),
+        array('jquery'),
         // 'jquery_script' , 'slick-script' が読み込まれた後に'main_script'を読み込む
         '1.0',
         true
     );
-
-    // 通常scriptタグが<head>に置かれるが、wp_enqueue_scriptの5番目の引数をtrueにすることによって
-    // </body>の前に配置される
 }
 
 

@@ -1,167 +1,202 @@
 <!DOCTYPE html>
 <html lang="ja">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>PortNavi</title>
-    <meta name="description" content="テキストテキストテキストテキストテキストテキストテキストテキス" />
+    <meta
+      name="description"
+      content="テキストテキストテキストテキストテキストテキストテキストテキス"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- タイトルのフォント -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Monoton&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- リセットCSS -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
 
     <!-- 共通CSS -->
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="/css/event.css?v=1" />
-</head>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/event.css?v=1" />
+  </head>
 
-<body>
+  <body>
     <header class="wrapper">
-        <div class="site-title">
-            <h1 class="site-title monoton-regular">
-                <a href="index.html">PortNavi</a>
-            </h1>
-        </div>
+      <div class="site-title">
+        <h1 class="site-title monoton-regular">
+          <a href="index.html">PortNavi</a>
+        </h1>
+      </div>
 
-        <!-- PC ナビゲーション -->
-        <div class="navbar-container">
-            <nav class="pc">
-                <ul class="nav-menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="category.html">Category</a></li>
-                    <li><a href="event.html">Event</a></li>
-                </ul>
-            </nav>
+      <!-- PC ナビゲーション -->
+      <div class="navbar-container">
+        <nav class="pc">
+          <ul class="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="category.html">Category</a></li>
+            <li><a href="event.html">Event</a></li>
+          </ul>
+        </nav>
 
-            <!-- 検索フォーム -->
-            <form method="get" action="#" class="search_container">
-                <input type="text" size="25" placeholder="キーワード検索" />
-                <button type="submit">🔍</button>
-            </form>
-        </div>
+        <!-- 検索フォーム -->
+        <form method="get" action="#" class="search_container">
+          <input type="text" size="25" placeholder="キーワード検索" />
+          <button type="submit">🔍</button>
+        </form>
+      </div>
     </header>
 
     <!-- サイドナビ部分 -->
     <aside class="side-nav">
-        <ul>
-            <li class="file-tab" role="presentation" tabindex="0">
-                <a href="#" role="tab">WEBサイト</a>
-            </li>
-            <li class="file-tab" role="presentation" tabindex="0">
-                <a href="#" role="tab">デザイン</a>
-            </li>
-            <li class="file-tab" role="presentation" tabindex="0">
-                <a href="#" role="tab">カラー別</a>
-            </li>
-        </ul>
+      <ul>
+        <li class="file-tab" role="presentation" tabindex="0">
+          <a href="#" role="tab">WEBサイト</a>
+        </li>
+        <li class="file-tab" role="presentation" tabindex="0">
+          <a href="#" role="tab">デザイン</a>
+        </li>
+        <li class="file-tab" role="presentation" tabindex="0">
+          <a href="#" role="tab">カラー別</a>
+        </li>
+      </ul>
     </aside>
 
     <!-- イベント一覧 -->
     <main>
-        <div class="event-container" role="main">
-            <section class="cards event-cards" aria-label="イベントカード">
-                <!-- Card 1 -->
-                <article class="event-card">
-                    <div class="card__body">
-                        <figure class="card__img">
-                            <picture>
-                                <source media="(min-width: 781px)" src="../img/cards/sun.png">
-                                <img src="../img/cards/sp-sun.png" alt="サクラボ" />
-                            </picture>
-                        </figure>
-                        <div class="event-txt">
-                            <h2 class="card__title">プロナビ・ハッカソン第1回</h2>
-                            <p class="date">制作期間：2025年4月21日〜2025年5月12日</p>
-                            <p class="theme">テーマ：「オフ会をアピールするHP」</p>
-                            <p class="desc">Pronaviの公式のオフ会を2025年7月に開催するにあたり
-                                オフ会に参加したくなるようなHPを作成することを目的に
-                                3人1組でハッカソンを開催しました
-                                全8組、23名の方に参加していただきました！</p>
-                            <div class="card__actions">
-                                <a class="btn" href="https://red719289.studio.site/">作品ページはこちらから</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+      <div class="event-container" role="main">
+        <section class="cards event-cards" aria-label="イベントカード">
+          <!-- Card 1 -->
+          <article class="event-card">
+            <div class="card__body">
+              <figure class="card__img">
+                <picture>
+                  <source
+                    media="(min-width: 781px)"
+                    src="../img/cards/sun.png"
+                  />
+                  <img src="../img/cards/sp-sun.png" alt="サクラボ" />
+                </picture>
+              </figure>
+              <div class="event-txt">
+                <h2 class="card__title">プロナビ・ハッカソン第1回</h2>
+                <p class="date">制作期間：2025年4月21日〜2025年5月12日</p>
+                <p class="theme">テーマ：「オフ会をアピールするHP」</p>
+                <p class="desc">
+                  Pronaviの公式のオフ会を2025年7月に開催するにあたり
+                  オフ会に参加したくなるようなHPを作成することを目的に
+                  3人1組でハッカソンを開催しました
+                  全8組、23名の方に参加していただきました！
+                </p>
+                <div class="card__actions">
+                  <a class="btn" href="https://red719289.studio.site/"
+                    >作品ページはこちらから</a
+                  >
+                </div>
+              </div>
+            </div>
+          </article>
 
-                <!-- Card 2 -->
-                <article class="event-card">
-                    <div class="card__body">
-                        <figure class="card__img">
-                            <picture>
-                                <source media="(min-width: 781px)" src="../img/cards/global.png">
-                                <img src="../img/cards/sp-global.png" alt="サクラボ" />
-                            </picture>
-                        </figure>
-                        <div class="event-txt">
-                            <h2 class="card__title">プロナビ・ハッカソン第2回</h2>
-                            <p class="date">制作期間：2025年7月14日(月)～2025年8月14日(月)</p>
-                            <p class="theme">テーマ：「Metaleafのアピール用ホームページ」</p>
-                            <p class="desc">開発はMetalife上で行い、Git/GitHubを活用してチームでの共同開発を実践。全員が実装と発表に関わる実践形式で進行。
-                                最終日の成果発表会では投票により優勝チームを決定。第一回を大きく上回る24組、総勢72人ものメンバーが参加。
-                            </p>
-                            <div class="card__actions">
-                                <a class="btn" href="https://white819139.studio.site/">作品ページはこちらから</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+          <!-- Card 2 -->
+          <article class="event-card">
+            <div class="card__body">
+              <figure class="card__img">
+                <picture>
+                  <source
+                    media="(min-width: 781px)"
+                    src="../img/cards/global.png"
+                  />
+                  <img src="../img/cards/sp-global.png" alt="サクラボ" />
+                </picture>
+              </figure>
+              <div class="event-txt">
+                <h2 class="card__title">プロナビ・ハッカソン第2回</h2>
+                <p class="date">
+                  制作期間：2025年7月14日(月)～2025年8月14日(月)
+                </p>
+                <p class="theme">
+                  テーマ：「Metaleafのアピール用ホームページ」
+                </p>
+                <p class="desc">
+                  開発はMetalife上で行い、Git/GitHubを活用してチームでの共同開発を実践。全員が実装と発表に関わる実践形式で進行。
+                  最終日の成果発表会では投票により優勝チームを決定。第一回を大きく上回る24組、総勢72人ものメンバーが参加。
+                </p>
+                <div class="card__actions">
+                  <a class="btn" href="https://white819139.studio.site/"
+                    >作品ページはこちらから</a
+                  >
+                </div>
+              </div>
+            </div>
+          </article>
 
-                <!-- Card 3 -->
-                <article class="event-card">
-                    <div class="card__body">
-                        <figure class="card__img">
-                            <picture>
-                                <source media="(min-width: 781px)" src="../img/cards/sazanka.png">
-                                <img src="../img/cards/sp-sazanka.png" alt="サクラボ" />
-                            </picture>
-                        </figure>
-                        <div class="event-txt">
-                            <h2 class="card__title">サクラボ・コンペ第1回</h2>
-                            <p class="date">制作期間：2025年7月14日(月)～2025年8月14日(月)</p>
-                            <p class="theme">テーマ：「主婦向けWeb制作スクールのLP」</p>
-                            <p class="desc"> ターゲットは25～40歳前後の主婦層。
-                                オンライン・個別指導型のWeb制作スクールを訴求するLPを新規作成する。
-                                未経験でも安心できる学習環境や、現役エンジニア講師による個別指導、案件獲得までのサポートを訴求ポイントとする。</p>
-                            <div class="card__actions">
-                                <a class="btn" href="https://preview.studio.site/live/9YWyQxm2WM">作品ページはこちらから</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+          <!-- Card 3 -->
+          <article class="event-card">
+            <div class="card__body">
+              <figure class="card__img">
+                <picture>
+                  <source
+                    media="(min-width: 781px)"
+                    src="../img/cards/sazanka.png"
+                  />
+                  <img src="../img/cards/sp-sazanka.png" alt="サクラボ" />
+                </picture>
+              </figure>
+              <div class="event-txt">
+                <h2 class="card__title">サクラボ・コンペ第1回</h2>
+                <p class="date">
+                  制作期間：2025年7月14日(月)～2025年8月14日(月)
+                </p>
+                <p class="theme">テーマ：「主婦向けWeb制作スクールのLP」</p>
+                <p class="desc">
+                  ターゲットは25～40歳前後の主婦層。
+                  オンライン・個別指導型のWeb制作スクールを訴求するLPを新規作成する。
+                  未経験でも安心できる学習環境や、現役エンジニア講師による個別指導、案件獲得までのサポートを訴求ポイントとする。
+                </p>
+                <div class="card__actions">
+                  <a
+                    class="btn"
+                    href="https://preview.studio.site/live/9YWyQxm2WM"
+                    >作品ページはこちらから</a
+                  >
+                </div>
+              </div>
+            </div>
+          </article>
 
-                <!-- Coming soon -->
-                <article class="event-card">
-                    <div class="card__body">
-                        <figure class="card__img">
-                            <picture>
-                                <source media="(min-width: 781px)" src="../img/cards/comingsoon.png">
-                                <img src="../img/cards/sp-comingsoon.png" alt="coming soon" />
-                            </picture>
-                        </figure>
+          <!-- Coming soon -->
+          <article class="event-card">
+            <div class="card__body">
+              <figure class="card__img">
+                <picture>
+                  <source
+                    media="(min-width: 781px)"
+                    src="../img/cards/comingsoon.png"
+                  />
+                  <img src="../img/cards/sp-comingsoon.png" alt="coming soon" />
+                </picture>
+              </figure>
 
-                        <div class="event-txt">
-                            <h2 class="card__title">プロナビ・ハッカソン第3回</h2>
-                            <p>乞うご期待！</p>
-                        </div>
-                    </div>
-                </article>
-            </section>
-        </div>
+              <div class="event-txt">
+                <h2 class="card__title">プロナビ・ハッカソン第3回</h2>
+                <p>乞うご期待！</p>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
     </main>
 
     <footer class="wrapper">
-        <p class="copyright">&copy; PortNavi</p>
+      <p class="copyright">&copy; PortNavi</p>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
-</body>
-
+  </body>
 </html>

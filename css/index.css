@@ -37,7 +37,6 @@ header {
 }
 
 /*----------　ヘッダー　検索パート　　----------------*/
-
 .search_container {
   box-sizing: border-box;
   margin-right: 10px;
@@ -186,6 +185,7 @@ header {
   background-color: #bfbaba;
   transition: 0.4s;
 }
+
 .header__nav-area.-active {
   left: 0;
   visibility: visible;

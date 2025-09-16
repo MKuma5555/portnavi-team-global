@@ -13,22 +13,26 @@ header {
   left: 0;
   right: 0;
 }
+
 .navbar-container {
   display: flex;
   gap: 2rem;
   align-items: center;
 }
+
 .nav-menu {
   display: flex;
   gap: 3rem;
   align-items: center;
 }
+
 .nav-menu li:last-child {
   margin-right: 0;
 }
 
 .site-title a {
-  font-family: "Monoton", sans-serif; /* Monoton タイトルフォントStyle */
+  font-family: "Monoton", sans-serif;
+  /* Monoton タイトルフォントStyle */
   font-weight: 400;
   font-style: normal;
   font-size: clamp(1.2rem, 5vw, 2.5rem);
@@ -42,15 +46,18 @@ header {
   box-sizing: border-box;
   margin-right: 10px;
 }
+
 .search_container input[type="text"] {
   border-bottom: 1px solid var(--color-main);
   height: 2em;
   width: 245px;
   overflow: hidden;
 }
+
 .search_container input[type="text"]:focus {
   outline: 0;
 }
+
 .search_container input[type="submit"] {
   cursor: pointer;
   font-family: FontAwesome;
@@ -77,12 +84,14 @@ header {
   background: transparent;
   z-index: 1000;
 }
+
 .file-tab a {
   writing-mode: vertical-rl;
   text-orientation: upright;
   margin-bottom: 2rem;
   border: 1px solid var(--color-main);
 }
+
 /* インデックスパネルはデフォルト非表示 */
 .index-panel {
   display: none;
@@ -116,20 +125,25 @@ header {
   border: none;
   background-color: transparent;
 }
+
 .hamburger.-active .hamburger__line {
   background-color: transparent;
 }
+
 .hamburger.-active .hamburger__line::before {
   top: 0;
   transform: rotate(45deg);
 }
+
 .hamburger.-active .hamburger__line::after {
   top: 0;
   transform: rotate(-45deg);
 }
+
 .hamburger.-active .hamburger__text::before {
   content: "閉じる";
 }
+
 .hamburger__line {
   display: block;
   height: 2px;
@@ -141,6 +155,7 @@ header {
   background-color: var(--color-main);
   transition: 0.4s;
 }
+
 .hamburger__line:before,
 .hamburger__line:after {
   content: "";
@@ -151,12 +166,15 @@ header {
   background-color: var(--color-main);
   transition: inherit;
 }
+
 .hamburger__line:before {
   top: -6px;
 }
+
 .hamburger__line:after {
   top: 6px;
 }
+
 .hamburger__text {
   position: absolute;
   bottom: 8px;
@@ -164,6 +182,7 @@ header {
   transform: translateX(-50%);
   width: 100%;
 }
+
 .hamburger__text::before {
   content: "メニュー";
   text-align: center;
@@ -171,9 +190,11 @@ header {
   font-size: 10px;
   font-weight: 900;
 }
+
 .header {
   width: 300px;
 }
+
 .header__nav-area {
   position: fixed;
   top: 0;
@@ -186,23 +207,28 @@ header {
   background-color: #bfbaba;
   transition: 0.4s;
 }
+
 .header__nav-area.-active {
   left: 0;
   visibility: visible;
 }
+
 .global-navigation {
   padding-top: 40px;
   padding-right: 25px;
   padding-bottom: 120px;
   padding-left: 25px;
 }
-.global-navigation__list > li {
+
+.global-navigation__list>li {
   padding-bottom: 20px;
   border-bottom: 2px solid #e7e9ee;
 }
-.global-navigation__list > li + li {
+
+.global-navigation__list>li+li {
   margin-top: 20px;
 }
+
 .global-navigation__link {
   display: flex;
   align-items: center;
@@ -212,6 +238,7 @@ header {
   transition: color 0.4s;
   font-size: 0.875rem;
 }
+
 .global-navigation__link.-accordion {
   position: relative;
   background: none;
@@ -222,6 +249,7 @@ header {
   width: 100%;
   padding: 0;
 }
+
 .global-navigation__link.-accordion::after {
   content: "";
   display: block;
@@ -234,6 +262,7 @@ header {
   transform: translateY(-50%);
   transition: transform 0.4s;
 }
+
 .global-navigation__link.-accordion::before {
   content: "";
   display: block;
@@ -245,26 +274,32 @@ header {
   background-color: #fff;
   transform: translateY(-50%);
 }
+
 .global-navigation__link.-active::after {
   transform: translateY(-50%) rotate(-90deg);
 }
+
 .accordion {
   height: 0;
   overflow: hidden;
   visibility: hidden;
   transition: 0.4s;
 }
+
 .accordion.-active {
   height: auto;
   padding-top: 30px;
   visibility: visible;
 }
+
 .accordion__list li {
   font-size: 0.75rem;
 }
-.accordion__list li + li {
+
+.accordion__list li+li {
   margin-top: 21px;
 }
+
 .accordion__link {
   color: var(--color-main);
 }
@@ -276,6 +311,7 @@ header {
   margin-bottom: 3.5rem;
   margin: 0 3%;
 }
+
 .info-underline {
   margin: 4% 0;
   border-bottom: 2px solid var(--color-main);
@@ -307,12 +343,16 @@ Card一覧
   display: flex;
   flex-direction: column;
 }
+
 .card:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.24);
   transform: translate(0, -2px);
-  height: auto; /* ← ホバーしたら高さを伸ばす */
-  min-height: 400px; /* ← 最低400pxはキープ */
+  height: auto;
+  /* ← ホバーしたら高さを伸ばす */
+  min-height: 400px;
+  /* ← 最低400pxはキープ */
 }
+
 .card-image {
   width: 100%;
   height: 200px;
@@ -341,11 +381,13 @@ Card一覧
   align-items: center;
   gap: 0.5rem;
 }
+
 .card-top .card-tags li {
   border: 0.5px solid var(--color-main);
   border-radius: 0.5rem;
   padding: 0 0.25rem;
 }
+
 .card-title {
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -390,6 +432,7 @@ Card一覧
   display: flex;
   gap: 1%;
 }
+
 /*-------------------------------------------
 footer
 -------------------------------------------*/
@@ -429,15 +472,19 @@ footer {
     gap: 1.5rem;
     margin: 0 auto;
   }
+
   .card {
     max-width: 20rem;
   }
+
   .card-text {
     font-size: 0.75rem;
   }
+
   .info-underline {
     width: 90%;
   }
+
   .info-top p {
     font-size: 2.8vw;
   }
@@ -460,5 +507,136 @@ footer {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) {}
+
+/*-------------------------------------------
+サイドナビ全体
+-------------------------------------------*/
+/* サイドナビ本体：タブが収まる幅にする */
+.side-nav {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  z-index: 100;
+  width: 35px;
+  pointer-events: auto;
+}
+
+/* タブ（li）ごとに“背骨”を擬似要素で描く */
+.side-nav .file-tab {
+  position: relative;
+  list-style: none;
+}
+
+/* 背骨共通部分：liの右側に縦帯 */
+.side-nav .file-tab::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 6px;
+  height: 100vh;
+}
+
+/* 1つめの背骨 */
+.side-nav .file-tab:nth-child(1)::before {
+  background: #4A2B00;
+  top: -10px;
+  right: 0px;
+}
+
+/* 2つめの背骨 */
+.side-nav .file-tab:nth-child(2)::before {
+  background: #67420F;
+  top: -149px;
+  right: 5px;
+}
+
+/* 3つめの背骨 */
+.side-nav .file-tab:nth-child(3)::before {
+  background: #85602D;
+  top: -267px;
+  right: 10px;
+}
+
+/* タブ本体共通部分*/
+.side-nav .file-tab>a {
+  position: relative;
+  z-index: 10;
+  display: block;
+  width: 30px;
+  padding: 12px 6px;
+  color: #FFFBF7;
+  font-weight: 500;
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: .1em;
+  border-radius: 10px 0 0 10px;
+  transform-origin: right center;
+  transition: transform .2s ease, filter .2s ease;
+  border: 0px solid transparent;
+  top: 50px;
+}
+
+/* ホバー */
+.side-nav .file-tab>a:hover {
+  transform: translateX(-4px);
+  filter: brightness(1.04);
+}
+
+/* 色バリエーション（任意） */
+.side-nav .file-tab:nth-child(1)>a {
+  background: #4A2B00;
+  margin-left: 1px;
+}
+
+.side-nav .file-tab:nth-child(2)>a {
+  background: #67420F;
+  margin-left: -3px;
+}
+
+.side-nav .file-tab:nth-child(3)>a {
+  background: #85602D;
+  margin-left: -5px;
+}
+
+
+/* 展開パネル：右のオフセットをタブ幅に合わせて調整 */
+.side-nav .index-panel {
+  position: absolute;
+  right: 50px;
+  top: 0;
+  display: none;
+  min-width: 160px;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.side-nav .index-panel a {
+  color: #FFFBF7;
+  border: 0px solid transparent;
+}
+
+.side-nav .file-tab:nth-child(1) .index-panel {
+  background: #4A2B00;
+}
+
+.side-nav .file-tab:nth-child(2) .index-panel {
+  background: #67420F;
+}
+
+.side-nav .file-tab:nth-child(3) .index-panel {
+  background: #85602D;
+}
+
+.side-nav .file-tab:hover .index-panel,
+.side-nav .file-tab:focus-within .index-panel {
+  display: block;
+}
+
+/* モバイルは非表示 */
+@media (max-width:768px) {
+  .side-nav {
+    display: none;
+  }
 }

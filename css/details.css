@@ -1,0 +1,249 @@
+/* details.html 専用 */
+
+.detail-page {
+    background-color: #FFFBF7;
+}
+
+.detail-page #firstview {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.detail-page #firstview .fv {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    display: block;
+}
+
+/* 右＝アイコン縦並び */
+.detail-page #firstview .icons {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.detail-page #firstview .icons img {
+    width: 40px;
+    height: auto;
+}
+
+.detail-page #firstview #tags {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
+.detail-page #firstview h2 {
+    padding-block: 20px;
+}
+
+.detail-page #tags .flex-tags {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    height: auto;
+}
+
+.detail-page #tags .tags {
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 10px;
+}
+
+.detail-page #tags .links {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.detail-page #tags li {
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.detail-page #tags .tag {
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    border: solid 1px var(--color-main);
+    border-radius: 10px;
+}
+
+.detail-page .project-info {
+    margin-top: 32px;
+    max-width: 90%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.detail-page .project-info h2 {
+    background: var(--color-main);
+    color: #FFFBF7;
+    padding: 10px 18px;
+    border-radius: 10px 10px 0 0;
+    font-weight: 700;
+}
+
+.detail-page .project-info-card {
+    border: 1.5px solid var(--color-main);
+    border-radius: 0 0 10px 10px;
+    padding: 18px;
+}
+
+.detail-page .project-info-body p {
+    line-height: 1.9;
+}
+
+.detail-page #screenshots {
+    margin-top: 32px;
+    max-width: 90%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.detail-page #screenshots h2 {
+    background: var(--color-main);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 10px 10px 0 0;
+    font-size: 1.25rem;
+}
+
+/* スクショ画像 */
+.detail-page #screenshots img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1.5px solid var(--color-main);
+    border-radius: 0 0 10px 10px;
+    background: #FFFBF7;
+    padding: 12px;
+}
+
+/* 右コメント欄ドロワー */
+:root {
+    --header-h: 150px;
+    --drawer-w: min(520px, 90vw);
+}
+
+.comment-drawer {
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    width: var(--drawer-w);
+    height: calc(100vh - var(--header-h));
+    background: #fffdf8;
+    border-left: 1px solid var(--color-main, #4A2B00);
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+.comment-drawer.is-open {
+    transform: translateX(0);
+}
+
+.comment-drawer h2 {
+    padding: 20px 50px;
+}
+
+.comment-drawer .comments {
+    padding: 20px 50px;
+}
+
+.comment-drawer .comments li {
+    padding-bottom: 10px;
+}
+
+/* 閉じるボタン */
+.drawer-close {
+    position: absolute;
+    left: -20px;
+    top: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--color-main, #4A2B00);
+    background: #fffdf8;
+    color: var(--color-main, #4A2B00);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.drawer-close::before {
+    content: "×";
+    line-height: 1;
+}
+
+/* ←コメント展開時main内だけ縮小 */
+#appFrame {
+    will-change: transform;
+}
+
+body.drawer-open #appFrame {
+    transform-origin: left top;
+    transform: scale(.7) translateX(-12px);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* スクロール設定 */
+.comment-drawer .drawer-body {
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+/* コメントの上でのスクロールでは背景スクロールロック */
+html.is-locked, body.is-locked{
+    height: 100%;
+    overflow: hidden;
+}
+
+/* スマホでは縮小しない（必要なら） */
+@media (max-width: 768px) {
+    body.drawer-open #appFrame {
+        transform: none;
+    }
+
+    .comment-drawer {
+        width: 100vw;
+        left: auto;
+    }
+}
+
+/* モバイルは縦積み */
+@media (max-width: 768px) {
+    .detail-page #firstview {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .detail-page #firstview .icons {
+        grid-column: 1;
+        grid-row: 2;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .detail-page #tags {
+        grid-column: 1;
+        grid-row: 3;
+        flex-direction: column;
+    }
+}

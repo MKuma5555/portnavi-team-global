@@ -1,47 +1,3 @@
-// // responsive menu
-// const toggleButton = document.querySelector(".toggle-button");
-// const dropdownMenu = document.querySelector(".dropdown-menu");
-// const menuIcon = document.querySelector(".menu-icon");
-// const dropdownLinks = dropdownMenu.querySelectorAll("a");
-// // icon svg change
-// const hamburgerSvg = `
-//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-//     <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
-//   </svg>
-// `;
-
-// const closeSvg = `
-//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-//     <path d="M249-249l-57-57 231-231-231-231 57-57 231 231 231-231 57 57-231 231 231 231-57 57-231-231-231 231Z"/>
-//   </svg>
-// `;
-// menuIcon.innerHTML = hamburgerSvg; // 初期表示
-
-// let isOpen = false;
-// // リロード時にドロップメニューを初期値【閉じてる状態に】戻す
-// document.addEventListener("DOMContentLoaded", () => {
-//   dropdownMenu.classList.remove("open");
-//   isOpen = false;
-//   menuIcon.innerHTML = hamburgerSvg;
-// });
-
-// // ハンバーガーメニューボタンでのドロップメニューのトグル
-// toggleButton.addEventListener("click", () => {
-//   dropdownMenu.classList.toggle("open");
-//   console.log("Dropdown menu toggled");
-//   const isOpen = dropdownMenu.classList.contains("open");
-//   menuIcon.innerHTML = isOpen ? closeSvg : hamburgerSvg;
-// });
-
-// // 画面のサイズがレスポンシブより大きくなったときにドロップダウンメニューを閉じる
-// window.addEventListener("resize", () => {
-//   if (window.innerWidth >= 992) {
-//     dropdownMenu.classList.remove("open");
-//     isOpen = false;
-//     menuIcon.innerHTML = hamburgerSvg;
-//   }
-// });
-
 // メニュー展開時に背景を固定
 const backgroundFix = (bool) => {
   const scrollingElement = () => {
@@ -78,12 +34,14 @@ let accordionFlg = false;
 
 let hamburger = document.getElementById("js-hamburger");
 let focusTrap = document.getElementById("js-focus-trap");
-let menu = document.querySelector(".js-nav-area");
+// let menu = document.querySelector(".js-nav-area");
+let menu = document.querySelector(".header__nav-area");
 let accordionTrigger = document.querySelectorAll(".js-sp-accordion-trigger");
 let accordion = document.querySelectorAll(".js-sp-accordion");
 
 // メニュー開閉制御
 hamburger.addEventListener("click", (e) => {
+  console.log("clicked");
   //ハンバーガーボタンが選択されたら
   e.currentTarget.classList.toggle(CLASS);
   menu.classList.toggle(CLASS);

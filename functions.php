@@ -24,18 +24,26 @@ function add_styles()
     // index.css
     wp_enqueue_style(
         'index_style',
-        get_template_directory_uri() .'/css/index.css',
-        array('reset_style'),
-        '1.0'
-    );
-    // main.cssを最後に実行
-    wp_enqueue_style(
-        'main_style',
-        get_template_directory_uri() .'/css/main.css',
+        get_template_directory_uri() . '/css/index.css',
         array('reset_style'),
         '1.0'
     );
 
+    // main.cssを最後に実行
+    wp_enqueue_style(
+        'main_style',
+        get_template_directory_uri() . '/css/main.css',
+        array('reset_style'),
+        '1.0'
+    );
+
+    // detail.css
+    wp_enqueue_style(
+        'detail_style',
+        get_template_directory_uri() . '/css/details.css',
+        array('reset_style', 'main_style'),
+        '1.0'
+    );
 }
 
 add_action('wp_enqueue_scripts', 'add_scripts');
@@ -73,11 +81,4 @@ function add_scripts()
 
 
 // サムネイル設定を有効化
-add_theme_support( 'post-thumbnails' );
-
-
-
-
-
-
-
+add_theme_support('post-thumbnails');

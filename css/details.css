@@ -17,6 +17,36 @@
     grid-row: 1;
     width: 100%;
     display: block;
+    object-fit: contain;
+}
+
+#firstview .fv-wrap {
+    width: 100%;
+    aspect-ratio: var(--fv-aspect, 16/9);
+    position: relative;
+    overflow: hidden;
+    /* はみ出しを隠す（object-fit:cover と相性◎） */
+    border-radius: 6px;
+    /* 任意 */
+}
+
+/* 画像はボックスいっぱいにフィットさせる */
+#firstview .fv-wrap>img.fv {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 全面にトリミングして埋める（推奨） */
+    display: block;
+}
+
+/* もしトリミングせず全体を見せたいなら “contain” に変更 */
+#firstview .fv-wrap>img.fv.is-contain {
+    object-fit: contain;
+    /* 余白が出ても比率は維持 */
+    background: #fff;
+    /* 余白の色（任意） */
 }
 
 /* 右＝アイコン縦並び */
@@ -83,8 +113,7 @@
 .detail-page .project-info {
     margin-top: 32px;
     max-width: 90%;
-    margin-left: 0;
-    margin-right: 0;
+    margin-inline: 0;
 }
 
 .detail-page .project-info h2 {
@@ -108,13 +137,12 @@
 .detail-page #screenshots {
     margin-top: 32px;
     max-width: 90%;
-    margin-left: 0;
-    margin-right: 0;
+    margin-inline: 0;
 }
 
 .detail-page #screenshots h2 {
     background: var(--color-main);
-    color: #fff;
+    color: #FFFBF7;
     padding: 12px 16px;
     border-radius: 10px 10px 0 0;
     font-size: 1.25rem;
@@ -131,19 +159,21 @@
     padding: 12px;
 }
 
+
 /* 右コメント欄ドロワー */
 :root {
     --header-h: 150px;
-    --drawer-w: min(520px, 90vw);
+    --drawer-w: clamp(380px, 30vw, 520px);
 }
 
 .comment-drawer {
     position: fixed;
-    top: var(--header-h);
+    top: 0;
     right: 0;
     width: var(--drawer-w);
-    height: calc(100vh - var(--header-h));
-    background: #fffdf8;
+    /* height: calc(100vh - var(--header-h)); */
+    height: 100vh;
+    background: #FFFBF7;
     border-left: 1px solid var(--color-main, #4A2B00);
     transform: translateX(100%);
     transition: transform .35s cubic-bezier(.2, .7, .2, 1);
@@ -154,11 +184,25 @@
 }
 
 .comment-drawer.is-open {
-    transform: translateX(0);
+    transform: translateX(8);
+}
+
+/* 見出しはドロワー側の h2 を使い、comments.php 側のタイトルは非表示に */
+.comment-drawer .comments-area .comments-title {
+    display: none;
+}
+
+/* ドロワー内の余白とタイポ */
+.comment-drawer .drawer-body {
+    padding: 20px 50px 100px;
 }
 
 .comment-drawer h2 {
     padding: 20px 50px;
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--color-main, #4A2B00);
 }
 
 .comment-drawer .comments {
@@ -166,7 +210,84 @@
 }
 
 .comment-drawer .comments li {
-    padding-bottom: 10px;
+    padding-block: 8px;
+    list-style: none;
+    margin: 0;
+}
+
+/* 行のレイアウト：author（太字） — content を1行に */
+.comment-drawer .comment,
+.comment-drawer .comment-body {
+    margin-bottom: 16px;
+}
+
+.comment-drawer .comment-author {
+    font-weight: 700;
+    margin-right: .3em;
+}
+
+.comment-drawer .comment-content {
+    display: inline;
+}
+
+/* 本文を横並びに */
+.comment-drawer .comment-content p {
+    display: inline;
+    margin: 0;
+}
+
+/* 作者名と本文の間にダッシュを自動挿入（マークアップに依存せず再現） */
+.comment-drawer .comment-author::after {
+    content: " — ";
+    font-weight: 400;
+}
+
+/* フォーム（ニックネーム + コメントのみ） */
+.comment-drawer .comment-form {
+    margin-top: 14px;
+}
+
+.comment-drawer .comment-form label {
+    display: block;
+    font-size: 12px;
+    color: #4a2b00;
+    margin: 0 0 6px;
+}
+
+.comment-drawer .comment-form-author input,
+.comment-drawer .comment-form-comment textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #4a2b00;
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.comment-drawer .form-submit {
+    margin-top: 10px;
+}
+
+.comment-drawer .form-submit .submit {
+    appearance: none;
+    cursor: pointer;
+    font-weight: 700;
+    border: 1px solid var(--color-main, #4A2B00);
+    background: #fff;
+    padding: 10px 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    color: var(--color-main, #4A2B00);
+}
+
+
+.comment-drawer .form-submit .submit:hover,
+.comment-drawer .form-submit .submit:focus-visible {
+    background: var(--color-main, #67420F);
+    color: #FFFBF7;
+    border-color: var(--color-main, #67420F);
+    transform: translateY(-1px);
+    outline: none;
 }
 
 /* 閉じるボタン */
@@ -178,7 +299,7 @@
     height: 40px;
     border-radius: 50%;
     border: 1px solid var(--color-main, #4A2B00);
-    background: #fffdf8;
+    background: #FFFBF7;
     color: var(--color-main, #4A2B00);
     display: grid;
     place-items: center;
@@ -198,9 +319,11 @@
 }
 
 body.drawer-open #appFrame {
-    transform-origin: left top;
-    transform: scale(.7) translateX(-12px);
-    transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+    /* transform-origin: left top;
+    transform: scale(calc((100vw - var(--drawer-w)) / 100vw)) translateX(-12px);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1); */
+    margin-right: var(--drawer-w);
+    transition: margin-right .35s cubic-bezier(.2, .7, .2, 1);
 }
 
 /* スクロール設定 */
@@ -210,7 +333,8 @@ body.drawer-open #appFrame {
 }
 
 /* コメントの上でのスクロールでは背景スクロールロック */
-html.is-locked, body.is-locked{
+html.is-locked,
+body.is-locked {
     height: 100%;
     overflow: hidden;
 }

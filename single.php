@@ -37,13 +37,27 @@
                     <div id="tags">
                         <h2>Tags</h2>
                         <div class="flex-tags">
-                            <!-- WPのタグ -->
+
+
+                            <!-- バッジ（カテゴリー/タグ/カスタムタクソノミー/tech_stack） -->
                             <ul class="tags">
                                 <?php
-                                $tags = get_the_tags();
-                                if ($tags) {
-                                    foreach ($tags as $t) {
-                                        echo '<li><span class="tag">' . esc_html($t->name) . '</span></li>';
+                                // ここに表示したい順番で列挙（左→右に出ます）
+                                $taxes = [
+                                    'tech_stack'   => 'tag-tech',   // 使用技術（既存）
+                                    'category'     => 'tag-cat',    // カテゴリー（標準）
+                                    'post_tag'     => 'tag-key',    // タグ（標準）
+                                    'site_type'    => 'tag-site',   // カスタム：サイト種別
+                                    'design_type'  => 'tag-design', // カスタム：デザイン種別
+                                    'color'        => 'tag-color',  // カスタム：カラー
+                                ];
+
+                                foreach ($taxes as $tax => $extra_class) {
+                                    $terms = get_the_terms(get_the_ID(), $tax);
+                                    if (!empty($terms) && !is_wp_error($terms)) {
+                                        foreach ($terms as $term) {
+                                            echo '<li><span class="tag ' . esc_attr($extra_class) . '" data-tax="' . esc_attr($tax) . '">' . esc_html($term->name) . '</span></li>';
+                                        }
                                     }
                                 }
                                 ?>

@@ -1,4 +1,12 @@
 /*-------------------------------------------
+全体背景色
+-------------------------------------------*/
+
+body {
+  background-color: #FFFBF7;
+}
+
+/*-------------------------------------------
 ヘッダー
 -------------------------------------------*/
 
@@ -604,9 +612,9 @@ footer {
 .side-nav .index-panel {
   position: absolute;
   right: 50px;
-  top: 0;
+  top: 50px;
   display: none;
-  min-width: 160px;
+  min-width: 200px;
   border-radius: 10px;
   padding: 10px 12px;
 }
@@ -632,6 +640,66 @@ footer {
 .side-nav .file-tab:focus-within .index-panel {
   display: block;
 }
+
+/* サイドバー内の Search & Filter をカード内リスト風に */
+.side-nav .searchandfilter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-nav .searchandfilter li {
+  margin: 8px 0;
+}
+
+.side-nav .searchandfilter label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2f1c00;
+  /* 読みやすい濃いめのブラウン */
+}
+
+
+.side-nav .searchandfilter input[type="checkbox"] {
+  accent-color: var(--color-main, #4A2B00);
+}
+
+/* 不要なら件数(○)を消す */
+.side-nav .searchandfilter .sf-count {
+  display: none;
+}
+
+/* /* submit ボタンが出ても非表示に（自動送信になってるかデータ入れた後に確認。必要あればボタン追加） */
+.side-nav .searchandfilter input[type="submit"] {
+  display: none;
+}
+
+/* サイドバー内の Search & Filter 共通文字色 */
+.side-nav .searchandfilter {
+  color: #FFFBF7;
+  /* ← 全体の文字色（例: 明るい色に） */
+}
+
+/* チェックボックス横のラベル */
+.side-nav .searchandfilter label {
+  color: #FFFBF7;
+  /* ← ラベルの文字色 */
+  font-weight: 500;
+  /* 太さを調整するなら */
+}
+
+/* Submit ボタン　＊要確認：要そうだったら追加
+.side-nav .searchandfilter input[type="submit"] {
+  background: var(--color-main, #4A2B00);
+  color: #FFFBF7;
+  border: 1px solid var(--color-main, #4A2B00);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+} */
 
 /* モバイルは非表示 */
 @media (max-width:768px) {

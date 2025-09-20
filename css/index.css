@@ -3,7 +3,7 @@
 -------------------------------------------*/
 
 body {
-  background-color: #FFFBF7;
+  background-color: #fffbf7;
 }
 
 /*-------------------------------------------
@@ -227,12 +227,12 @@ header {
   padding-left: 25px;
 }
 
-.global-navigation__list>li {
+.global-navigation__list > li {
   padding-bottom: 20px;
   border-bottom: 2px solid #e7e9ee;
 }
 
-.global-navigation__list>li+li {
+.global-navigation__list > li + li {
   margin-top: 20px;
 }
 
@@ -303,7 +303,7 @@ header {
   font-size: 0.75rem;
 }
 
-.accordion__list li+li {
+.accordion__list li + li {
   margin-top: 21px;
 }
 
@@ -316,7 +316,6 @@ header {
 -------------------------------------------*/
 .info-top {
   margin-bottom: 3.5rem;
-  margin: 0 3%;
 }
 
 .info-underline {
@@ -514,7 +513,8 @@ footer {
   }
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+}
 
 /*-------------------------------------------
 サイドナビ全体
@@ -546,67 +546,66 @@ footer {
 
 /* 1つめの背骨 */
 .side-nav .file-tab:nth-child(1)::before {
-  background: #4A2B00;
+  background: #4a2b00;
   top: -10px;
   right: 0px;
 }
 
 /* 2つめの背骨 */
 .side-nav .file-tab:nth-child(2)::before {
-  background: #67420F;
+  background: #67420f;
   top: -149px;
   right: 5px;
 }
 
 /* 3つめの背骨 */
 .side-nav .file-tab:nth-child(3)::before {
-  background: #85602D;
+  background: #85602d;
   top: -267px;
   right: 10px;
 }
 
 /* タブ本体共通部分*/
-.side-nav .file-tab>a {
+.side-nav .file-tab > a {
   position: relative;
   z-index: 10;
   display: block;
   width: 30px;
   padding: 12px 6px;
-  color: #FFFBF7;
+  color: #fffbf7;
   font-weight: 500;
   text-decoration: none;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   border-radius: 10px 0 0 10px;
   transform-origin: right center;
-  transition: transform .2s ease, filter .2s ease;
+  transition: transform 0.2s ease, filter 0.2s ease;
   border: 0px solid transparent;
   top: 50px;
 }
 
 /* ホバー */
-.side-nav .file-tab>a:hover {
+.side-nav .file-tab > a:hover {
   transform: translateX(-4px);
   filter: brightness(1.04);
 }
 
 /* 色バリエーション（任意） */
-.side-nav .file-tab:nth-child(1)>a {
-  background: #4A2B00;
+.side-nav .file-tab:nth-child(1) > a {
+  background: #4a2b00;
   margin-left: 1px;
 }
 
-.side-nav .file-tab:nth-child(2)>a {
-  background: #67420F;
+.side-nav .file-tab:nth-child(2) > a {
+  background: #67420f;
   margin-left: -3px;
 }
 
-.side-nav .file-tab:nth-child(3)>a {
-  background: #85602D;
+.side-nav .file-tab:nth-child(3) > a {
+  background: #85602d;
   margin-left: -5px;
 }
-
 
 /* 展開パネル：右のオフセットをタブ幅に合わせて調整 */
 .side-nav .index-panel {
@@ -620,20 +619,20 @@ footer {
 }
 
 .side-nav .index-panel a {
-  color: #FFFBF7;
+  color: #fffbf7;
   border: 0px solid transparent;
 }
 
 .side-nav .file-tab:nth-child(1) .index-panel {
-  background: #4A2B00;
+  background: #4a2b00;
 }
 
 .side-nav .file-tab:nth-child(2) .index-panel {
-  background: #67420F;
+  background: #67420f;
 }
 
 .side-nav .file-tab:nth-child(3) .index-panel {
-  background: #85602D;
+  background: #85602d;
 }
 
 .side-nav .file-tab:hover .index-panel,
@@ -662,9 +661,8 @@ footer {
   /* 読みやすい濃いめのブラウン */
 }
 
-
 .side-nav .searchandfilter input[type="checkbox"] {
-  accent-color: var(--color-main, #4A2B00);
+  accent-color: var(--color-main, #4a2b00);
 }
 
 /* 不要なら件数(○)を消す */
@@ -679,13 +677,13 @@ footer {
 
 /* サイドバー内の Search & Filter 共通文字色 */
 .side-nav .searchandfilter {
-  color: #FFFBF7;
+  color: #fffbf7;
   /* ← 全体の文字色（例: 明るい色に） */
 }
 
 /* チェックボックス横のラベル */
 .side-nav .searchandfilter label {
-  color: #FFFBF7;
+  color: #fffbf7;
   /* ← ラベルの文字色 */
   font-weight: 500;
   /* 太さを調整するなら */
@@ -702,8 +700,56 @@ footer {
 } */
 
 /* モバイルは非表示 */
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .side-nav {
     display: none;
   }
 }
+
+/*-------------------------------------------
+ヘッダー検索フォームのライブサーチ
+-------------------------------------------*/
+#keywords-search-results {
+  display: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  max-width: 350px;
+  max-height: 400px;
+  height: auto;
+  overflow-y: scroll;
+  position: absolute;
+  right: 5%;
+  top: 130px;
+  z-index: 9999;
+}
+
+#clear-button {
+  display: none;
+}
+#keywords-search-results #results-list {
+  padding: 5px 10px;
+}
+#keywords-search-results #results-list li {
+  list-style: none;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+#keywords-search-results #results-lis .result-text {
+  font-size: 0.75rem;
+}
+#keywords-search-results #results-list .result-img {
+  width: 100px;
+  height: auto;
+}
+#keywords-search-results #results-list .result-title {
+  font-weight: 700;
+  color: var(--color-main);
+  margin-bottom: 5px;
+}
+/* #search-results div:hover {
+  background: #f0f0f0;
+} */

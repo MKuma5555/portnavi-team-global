@@ -21,21 +21,6 @@ function add_styles()
     );
 
 
-    // index.css
-    wp_enqueue_style(
-        'index_style',
-        get_template_directory_uri() . '/css/index.css',
-        array('reset_style'),
-        '1.0'
-    );
-
-    // main.cssを最後に実行
-    wp_enqueue_style(
-        'main_style',
-        get_template_directory_uri() . '/css/main.css',
-        array('reset_style'),
-        '1.0'
-    );
 
     // detail.css
     wp_enqueue_style(
@@ -44,6 +29,32 @@ function add_styles()
         array('reset_style', 'main_style'),
         '1.0'
     );
+
+        // event.css
+        if(is_page('event')){
+            wp_enqueue_style(
+                'event_style',
+                get_template_directory_uri() . '/css/event.css',
+                array('reset_style', 'main_style'),
+                '1.0'
+            );
+        }
+        // index.css
+        wp_enqueue_style(
+            'index_style',
+            get_template_directory_uri() . '/css/index.css',
+            array('reset_style'),
+            '1.0'
+        );
+    
+        // main.cssを最後に実行
+        wp_enqueue_style(
+            'main_style',
+            get_template_directory_uri() . '/css/main.css',
+            array('reset_style'),
+            '1.0'
+        );
+    
 }
 
 add_action('wp_enqueue_scripts', 'add_scripts');
@@ -67,6 +78,15 @@ function add_scripts()
 
     // noConflict モードで jQuery を $ に割り当てない
     // wp_add_inline_script('jquery', 'jQuery.noConflict();');
+
+    // search&filterのjs
+    wp_enqueue_script(
+        'search-script',
+        get_template_directory_uri() . '/js/search.js',
+        array('jquery'),
+        '1.0',
+        true
+    );
 
     // main.jsを最後に実行
     wp_enqueue_script(

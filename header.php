@@ -40,7 +40,7 @@
          
         
         <!-- 検索フォーム 本番用-->
-        <form method="get" action="#" class="search_container">
+        <form method="get" action="/search-result" class="search_container">
             <input type="text" id="live-search"  size="25" placeholder="キーワード検索" />
             <button id="clear-button" type="button">×</button>
             <button id="header-keywords-submit" type="submit">

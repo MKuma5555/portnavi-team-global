@@ -150,11 +150,22 @@ document
     await performSearch(keywordsQuery, (isManualSearch = false)); // 入力されている文字列で検索
   });
 
-// 「検索ボタン押下 or Enter押下時」の検索実行
+document
+  .getElementById("header-keywords-submit")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    const query = document.getElementById("live-search").value;
+    if (query.trim() === "") return;
+    // 固定ページにクエリを付けて遷移
+    window.location.href = `/search-result?query=${encodeURIComponent(query)}`;
+  });
+
+// Enter押下時
 document
   .querySelector(".search_container")
-  .addEventListener("submit", async function (e) {
+  .addEventListener("submit", function (e) {
     e.preventDefault();
-    const keywordsQuery = document.getElementById("live-search").value;
-    await performSearch(keywordsQuery, true);
+    const query = document.getElementById("live-search").value;
+    if (query.trim() === "") return;
+    window.location.href = `/search-result?query=${encodeURIComponent(query)}`;
   });

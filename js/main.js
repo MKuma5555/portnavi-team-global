@@ -91,42 +91,43 @@ focusTrap.addEventListener("focus", (e) => {
 });
 
 // Detail Page　コメント欄展開
-(function(){
-  const openBtn  = document.querySelector('[data-action="open-comments"]');
-  const drawer   = document.getElementById('commentDrawer');
-  const closeBtn = drawer.querySelector('.drawer-close');
+(function () {
+  const openBtn = document.querySelector('[data-action="open-comments"]');
+  const drawer = document.getElementById("commentDrawer");
+  const closeBtn = drawer.querySelector(".drawer-close");
 
-  function updateAppScale(){
+  function updateAppScale() {
     const vw = window.innerWidth;
-    const dw = drawer.getBoundingClientRect().width;  // 実サイズを取得
+    const dw = drawer.getBoundingClientRect().width; // 実サイズを取得
     let scale = (vw - dw) / vw;
 
     // 下限・上限を軽くガード（必要に応じて調整）
     scale = Math.min(1, Math.max(0.55, scale));
 
-    document.documentElement.style
-      .setProperty('--app-scale', scale);
+    document.documentElement.style.setProperty("--app-scale", scale);
   }
 
-  function openDrawer(e){
+  function openDrawer(e) {
     if (e) e.preventDefault();
-    drawer.classList.add('is-open');
-    document.body.classList.add('drawer-open');
-    updateAppScale();            // ← 開くたびに計算
+    drawer.classList.add("is-open");
+    document.body.classList.add("drawer-open");
+    updateAppScale(); // ← 開くたびに計算
   }
 
-  function closeDrawer(){
-    drawer.classList.remove('is-open');
-    document.body.classList.remove('drawer-open');
+  function closeDrawer() {
+    drawer.classList.remove("is-open");
+    document.body.classList.remove("drawer-open");
     // 元に戻すなら任意：document.documentElement.style.removeProperty('--app-scale');
   }
 
-  openBtn?.addEventListener('click', openDrawer);
-  closeBtn?.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+  openBtn?.addEventListener("click", openDrawer);
+  closeBtn?.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDrawer();
+  });
 
   // ウィンドウリサイズ時も追従（開いている時だけ）
-  window.addEventListener('resize', () => {
-    if (document.body.classList.contains('drawer-open')) updateAppScale();
+  window.addEventListener("resize", () => {
+    if (document.body.classList.contains("drawer-open")) updateAppScale();
   });
 })();

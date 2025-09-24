@@ -728,6 +728,7 @@ footer {
 }
 #keywords-search-results #results-list {
   padding: 5px 10px;
+  min-height: 200px;
 }
 #keywords-search-results #results-list li {
   list-style: none;

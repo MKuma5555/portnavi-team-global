@@ -18,11 +18,16 @@
         <?php while ( have_posts() ) : the_post(); ?>
           <li class="card-container">
             <div class="card">
-              <a href="<?php echo esc_url(home_url('/details.html'));?>">
-                <?php if ( has_post_thumbnail() ) : ?>
+                      <a href="<?php the_permalink();?>">
+                      <?php if ( has_post_thumbnail() ) : ?>
                   <?php the_post_thumbnail( 'medium', array( 'class' => 'card-image' ) ); ?>
                 <?php endif; ?>
               </a>
+              <!-- <a href="<?php echo esc_url(home_url('/details.html'));?>">
+                <?php if ( has_post_thumbnail() ) : ?>
+                  <?php the_post_thumbnail( 'medium', array( 'class' => 'card-image' ) ); ?>
+                <?php endif; ?>
+              </a> -->
 
               <div class="card-body">
                 <div class="card-top">

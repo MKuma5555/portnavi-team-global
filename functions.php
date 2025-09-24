@@ -2,17 +2,17 @@
 add_action('wp_enqueue_scripts', 'add_styles');
 
 
-function add_styles()
-{
-    //CSSの読み込み
-    // reset styleを登録
+function add_styles() {
+    // 1. reset.css
     wp_register_style(
         'reset_style',
         'https://unpkg.com/ress/dist/ress.min.css',
         array(),
         '1.0'
     );
-    // Google Fonts 読み込み
+    wp_enqueue_style('reset_style');
+
+    // 2. Google Fonts
     wp_enqueue_style(
         'google-fonts-monoton',
         'https://fonts.googleapis.com/css2?family=Monoton&display=swap',
@@ -20,9 +20,23 @@ function add_styles()
         null
     );
 
+    // 3. main.css
+    wp_enqueue_style(
+        'main_style',
+        get_template_directory_uri() . '/css/main.css',
+        array('reset_style'),
+        '1.0'
+    );
 
+    // 4. index.css（mainの後に読み込み）
+    wp_enqueue_style(
+        'index_style',
+        get_template_directory_uri() . '/css/index.css',
+        array('reset_style', 'main_style'),
+        '1.0'
+    );
 
-    // detail.css
+    // 5. detail.css（mainの後に読み込み）
     wp_enqueue_style(
         'detail_style',
         get_template_directory_uri() . '/css/details.css',
@@ -30,34 +44,18 @@ function add_styles()
         '1.0'
     );
 
-        // event.css
-        if(is_page('event')){
-            wp_enqueue_style(
-                'event_style',
-                get_template_directory_uri() . '/css/event.css',
-                array('reset_style', 'main_style'),
-                '1.0'
-            );
-        }
-        // index.css
+    // 6. event.css（eventページだけ）
+    if(is_page('event')){
         wp_enqueue_style(
-            'index_style',
-            get_template_directory_uri() . '/css/index.css',
-            array('reset_style'),
+            'event_style',
+            get_template_directory_uri() . '/css/event.css',
+            array('reset_style', 'main_style'),
             '1.0'
         );
-    
-        // main.cssを最後に実行
-        wp_enqueue_style(
-            'main_style',
-            get_template_directory_uri() . '/css/main.css',
-            array('reset_style'),
-            '1.0'
-        );
-    
+    }
 }
+add_action('wp_enqueue_scripts', 'add_styles');
 
-add_action('wp_enqueue_scripts', 'add_scripts');
 function add_scripts()
 {
     // デフォルトのjQueryを削除

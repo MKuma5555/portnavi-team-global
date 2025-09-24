@@ -1,4 +1,7 @@
 <?php
+
+use DeviceDetector\Parser\Device\Console;
+
 get_header(); 
 get_sidebar(); 
 ?>
@@ -18,8 +21,12 @@ get_sidebar();
   <div class="wrapper">
     <ul class="cards-list">
 
+
+
+    
     <?php
-      $query = isset($_GET['query']) ? sanitize_text_field($_GET['query']) : '';
+      $query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+      
       
       if ( !empty($query) ) {
 
@@ -144,3 +151,11 @@ get_sidebar();
 </main>
 
 <?php get_footer(); ?>
+
+
+
+
+
+
+
+

@@ -1,151 +1,215 @@
 <?php
-add_action('wp_enqueue_scripts', 'add_styles');
-
-
-function add_styles() {
-    // 1. reset.css
-    wp_register_style(
+// すべてのアセット（スタイルとスクリプト）を読み込む単一の関数
+function my_theme_assets() {
+    // スタイルを読み込む
+    wp_enqueue_style(
         'reset_style',
         'https://unpkg.com/ress/dist/ress.min.css',
-        array(),
+        [],
         '1.0'
     );
-    wp_enqueue_style('reset_style');
-
-    // 2. Google Fonts
     wp_enqueue_style(
         'google-fonts-monoton',
         'https://fonts.googleapis.com/css2?family=Monoton&display=swap',
-        array(),
+        [],
         null
     );
-
-    // 3. main.css
     wp_enqueue_style(
         'main_style',
         get_template_directory_uri() . '/css/main.css',
-        array('reset_style'),
+        ['reset_style'],
         '1.0'
     );
-
-    // 4. index.css（mainの後に読み込み）
     wp_enqueue_style(
         'index_style',
         get_template_directory_uri() . '/css/index.css',
-        array('reset_style', 'main_style'),
+        ['reset_style', 'main_style'],
         '1.0'
     );
-
-    // 5. detail.css（mainの後に読み込み）
     wp_enqueue_style(
         'detail_style',
         get_template_directory_uri() . '/css/details.css',
-        array('reset_style', 'main_style'),
+        ['reset_style', 'main_style'],
         '1.0'
     );
-
-    // 6. event.css（eventページだけ）
-    if(is_page('event')){
+    if (is_page('event')) {
         wp_enqueue_style(
             'event_style',
             get_template_directory_uri() . '/css/event.css',
-            array('reset_style', 'main_style'),
+            ['reset_style', 'main_style'],
             '1.0'
         );
     }
-}
-add_action('wp_enqueue_scripts', 'add_styles');
 
-function add_scripts()
-{
-    // デフォルトのjQueryを削除
+    // スクリプトを読み込む
+    // デフォルトのjQueryを削除し、CDNから読み込む
     wp_deregister_script('jquery');
-
-
-    // jQuery を CDN から読み込む
-    wp_register_script(
+    wp_enqueue_script(
         'jquery',
         'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
-        array(),
+        [],
         '3.6.0',
         true
     );
 
-    // WordPress 標準 jQuery をそのまま使う
-    wp_enqueue_script('jquery');
-
-    // noConflict モードで jQuery を $ に割り当てない
-    // wp_add_inline_script('jquery', 'jQuery.noConflict();');
-
-    // search&filterのjs
+    // search.js を読み込む
     wp_enqueue_script(
         'search-script',
         get_template_directory_uri() . '/js/search.js',
-        array('jquery'),
+        ['jquery'],
         '1.0',
         true
     );
 
-    // main.jsを最後に実行
+    // Ajax URLをJavaScriptに渡す
+    wp_localize_script(
+        'search-script',
+        'live_tax_vars',
+        [
+            'ajax_url' => admin_url('admin-ajax.php')
+        ]
+    );
+
+    // main.jsを最後に読み込む
     wp_enqueue_script(
         'main_script',
         get_template_directory_uri() . '/js/main.js',
-        array('jquery'),
-        // 'jquery_script' , 'slick-script' が読み込まれた後に'main_script'を読み込む
+        ['jquery'],
         '1.0',
         true
     );
 }
-
+add_action('wp_enqueue_scripts', 'my_theme_assets');
 
 // サムネイル設定を有効化
 add_theme_support('post-thumbnails');
 
-// タグ付け用タクソノミー設計（サイトタイプ / デザインタイプ / カラー / 使用ツール）
+// タクソノミー設定
 add_action('init', function () {
-    // 共通オプション
     $common = [
-        'public'            => true,              // フロントでも使える（URL/アーカイブ可）
+        'public' => true,
         'publicly_queryable' => true,
-        'show_ui'           => true,              // 管理画面で編集可
-        'show_in_menu'      => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
         'show_in_nav_menus' => true,
-        'show_tagcloud'     => true,
-        'show_in_rest'      => true,              // ブロックエディタ対応
-        'show_admin_column' => true,              // 投稿一覧にカラムを出す
-        'query_var'         => true,              // ?site_type=corporate のようなクエリOK
+        'show_tagcloud' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
     ];
 
-    // Webサイトカテゴリ別（親子階層あり）
     register_taxonomy('site_type', ['post'], array_merge($common, [
-        'labels'       => ['name' => 'Webサイトカテゴリ別'],
+        'labels' => ['name' => 'Webサイトカテゴリ別'],
         'hierarchical' => true,
-        'rewrite'      => ['slug' => 'site-type', 'with_front' => false],
+        'rewrite' => ['slug' => 'site-type', 'with_front' => false],
     ]));
 
-    // デザインカテゴリ別（タグ的：親子なし）
     register_taxonomy('design_type', ['post'], array_merge($common, [
-        'labels'       => ['name' => 'デザインカテゴリ別'],
+        'labels' => ['name' => 'デザインカテゴリ別'],
         'hierarchical' => false,
-        'rewrite'      => ['slug' => 'design', 'with_front' => false],
+        'rewrite' => ['slug' => 'design', 'with_front' => false],
     ]));
 
-    // カラー別（タグ的：親子なし）
     register_taxonomy('color', ['post'], array_merge($common, [
-        'labels'       => ['name' => 'カラー別'],
+        'labels' => ['name' => 'カラー別'],
         'hierarchical' => false,
-        'rewrite'      => ['slug' => 'color', 'with_front' => false],
+        'rewrite' => ['slug' => 'color', 'with_front' => false],
     ]));
 
-    // 使用ツール（タグ的：親子なし）
     register_taxonomy('tech_stack', ['post'], array_merge($common, [
-        'labels'       => ['name' => '使用ツール'],
+        'labels' => ['name' => '使用ツール'],
         'hierarchical' => false,
-        'rewrite'      => ['slug' => 'tech', 'with_front' => false],
+        'rewrite' => ['slug' => 'tech', 'with_front' => false],
     ]));
 });
 
-// テーマ有効化時にパーマリンク設定を再生成（404対策）
+// テーマ有効化時にパーマリンク設定を再生成
 add_action('after_switch_theme', function () {
     flush_rewrite_rules();
 });
+
+// Ajaxライブ検索用コールバック
+add_action('wp_ajax_live_tax_search', 'live_tax_search_callback');
+add_action('wp_ajax_nopriv_live_tax_search', 'live_tax_search_callback');
+
+function live_tax_search_callback() {
+    $keyword = sanitize_text_field($_POST['keyword']);
+    if (empty($keyword)) {
+        wp_send_json([]);
+    }
+
+    $results = [];
+    $post_ids = [];
+
+    // 1. 投稿タイトル・本文を検索
+    $post_query_args = [
+        'post_type'      => 'post',
+        's'              => $keyword,
+        'posts_per_page' => -1, // すべての投稿を取得
+    ];
+    $post_query = new WP_Query($post_query_args);
+
+    if ($post_query->have_posts()) {
+        while ($post_query->have_posts()) {
+            $post_query->the_post();
+            $post_id = get_the_ID();
+            $results[] = [
+                'title'     => get_the_title(),
+                'link'      => get_permalink(),
+                'excerpt'   => wp_trim_words(get_the_excerpt(), 20, '…'),
+                'thumbnail' => get_the_post_thumbnail_url($post_id, 'thumbnail') ?: 'https://via.placeholder.com/80',
+            ];
+            $post_ids[] = $post_id;
+        }
+    }
+    wp_reset_postdata();
+
+    // 2. タクソノミー（カテゴリ、タグ）を検索
+    $taxonomies_to_search = ['category', 'site_type', 'post_tag', 'design_type', 'color', 'tech_stack'];
+    $matching_terms = get_terms([
+        'taxonomy'   => $taxonomies_to_search,
+        'name__like' => $keyword,
+        'hide_empty' => false,
+    ]);
+
+    if (!empty($matching_terms) && !is_wp_error($matching_terms)) {
+        foreach ($matching_terms as $term) {
+            $term_posts_query_args = [
+                'post_type'      => 'post',
+                'posts_per_page' => -1,
+                'tax_query'      => [
+                    [
+                        'taxonomy' => $term->taxonomy,
+                        'field'    => 'slug',
+                        'terms'    => $term->slug,
+                    ],
+                ],
+            ];
+            $term_posts_query = new WP_Query($term_posts_query_args);
+
+            if ($term_posts_query->have_posts()) {
+                while ($term_posts_query->have_posts()) {
+                    $term_posts_query->the_post();
+                    $post_id = get_the_ID();
+                    // 投稿IDがすでに結果配列に存在しないか確認
+                    if (!in_array($post_id, $post_ids)) {
+                        $results[] = [
+                            'title'     => get_the_title(),
+                            'link'      => get_permalink(),
+                            'excerpt'   => wp_trim_words(get_the_excerpt(), 20, '…'),
+                            'thumbnail' => get_the_post_thumbnail_url($post_id, 'thumbnail') ?: 'https://via.placeholder.com/80',
+                        ];
+                        $post_ids[] = $post_id;
+                    }
+                }
+            }
+            wp_reset_postdata();
+        }
+    }
+    
+    wp_send_json($results);
+}
+
+// 以前のAjaxコールバック名が「sf_live_search」だった場合はこちらも有効にする
+add_action('wp_ajax_sf_live_search', 'live_tax_search_callback');
+add_action('wp_ajax_nopriv_sf_live_search', 'live_tax_search_callback');

@@ -33,11 +33,6 @@
         </nav>
 
 
-        <!-- 検索フォーム1 search&filter　これは参考後で消す-->
-        <!-- <?php echo do_shortcode('[searchwp_form id="1"]'); ?> -->
-        <!-- <?php echo do_shortcode('[searchandfilter  fields="search,category,post_tag" headings=",Categories,Tags" types="search" post_types="post"]'); ?> -->
-         
-        
         <!-- 検索フォーム 本番用-->
         <form method="get"action="<?php echo esc_url( home_url( '/' ) ); ?>" class="search_container">
         <input type="text" id="live-search" size="25" name="s" placeholder="キーワード検索" value=""/>
@@ -49,7 +44,7 @@
       </div>
 
 
-
+<!-- ライブ検索用のDIV -->
       <div id="keywords-search-results">
       </div>
 

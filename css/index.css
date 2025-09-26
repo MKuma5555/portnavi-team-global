@@ -340,7 +340,7 @@ Card一覧
   height: 400px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   padding: 1rem 5%;
   cursor: pointer;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
@@ -362,8 +362,6 @@ Card一覧
 .card-image {
   width: 100%;
   height: 200px;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
 }
 
 .card-body {
@@ -728,6 +726,7 @@ footer {
 }
 #keywords-search-results #results-list {
   padding: 5px 10px;
+  min-width: 350px;
   min-height: 200px;
 }
 #keywords-search-results #results-list li {

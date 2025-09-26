@@ -25,12 +25,34 @@ get_sidebar();
 
     
     <?php
-      $query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+
+$query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+
       
       
       if ( !empty($query) ) {
-
         $posts = [];
+
+// カスタムタクソノミー検索
+$custom_taxonomies = ['site_type','design_type','color','tech_stack'];
+foreach ( $custom_taxonomies as $tax ) {
+    $term = get_term_by('name', $query, $tax);
+    if ( $term ) {
+        $tax_posts = get_posts([
+            'post_type' => 'post',
+            'posts_per_page' => 10,
+            'tax_query' => [
+                [
+                    'taxonomy' => $tax,
+                    'field'    => 'term_id',
+                    'terms'    => $term->term_id,
+                ],
+            ],
+        ]);
+        $posts = array_merge($posts, $tax_posts);
+    }
+}
+
 
         // 投稿タイトル/本文検索
         $post_args = [

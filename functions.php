@@ -78,7 +78,22 @@ function add_scripts()
 // サムネイル設定を有効化
 add_theme_support( 'post-thumbnails' );
 
-
+// CPT UI 「eventpost」
+function create_eventpost_type() {
+    register_post_type('eventpost',
+        array(
+            'labels' => array(
+                'name'          => 'イベント',
+                'singular_name' => 'イベント'
+            ),
+            'public'        => true,
+            'has_archive'   => true,
+            'menu_icon'     => 'dashicons-calendar-alt',
+            'supports'      => array('title', 'editor', 'thumbnail')
+        )
+    );
+}
+add_action('init', 'create_eventpost_type');
 
 
 

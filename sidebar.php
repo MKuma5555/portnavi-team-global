@@ -1,36 +1,60 @@
 <aside class="side-nav">
-      <ul>
-        <li class="file-tab" role="presentation" tabindex="0">
-          <a href="<?php echo esc_url(home_url());?>" role="tab">WEBサイト</a>
-          <div class="index-panel" role="tabpanel" aria-hidden="false">
-            <ul>
-              <li><a href="<?php echo esc_url(home_url());?>">1</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">2</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">3</a></li>
-            </ul>
-          </div>
-        </li>
+  <ul>
+    <!-- === Webサイトカテゴリ === -->
+    <li class="file-tab" role="presentation" tabindex="0">
+      <a href="javascript:void(0);" role="tab">WEBサイト</a>
+      <div class="index-panel" role="tabpanel" aria-hidden="false">
+        <?php
+        echo do_shortcode('[searchandfilter 
+          fields="site_type" 
+          types="checkbox"
+          operators="OR"
+          headings=" "
+          taxonomies="site_type"
+          post_types="post"
+          hide_empty="1"
+          order_by="name"
+        ]');
+        ?>
+      </div>
+    </li>
 
-        <li class="file-tab" role="presentation" tabindex="0">
-          <a href="<?php echo esc_url(home_url());?>" role="tab">デザイン</a>
-          <div class="index-panel" role="tabpanel" aria-hidden="true">
-            <ul>
-              <li><a href="<?php echo esc_url(home_url());?>">4</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">5</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">6</a></li>
-            </ul>
-          </div>
-        </li>
+    <!-- === デザインカテゴリ === -->
+    <li class="file-tab" role="presentation" tabindex="0">
+      <a href="javascript:void(0);" role="tab">デザイン</a>
+      <div class="index-panel" role="tabpanel" aria-hidden="true">
+        <?php
+        echo do_shortcode('[searchandfilter 
+          fields="design_type" 
+          types="checkbox"
+          operators="OR"
+          headings=" "
+          taxonomies="design_type"
+          post_types="post"
+          hide_empty="1"
+          order_by="name"
+        ]');
+        ?>
+      </div>
+    </li>
 
-        <li class="file-tab" role="presentation" tabindex="0">
-          <a href="<?php echo esc_url(home_url());?>" role="tab">カラー別</a>
-          <div class="index-panel" role="tabpanel" aria-hidden="true">
-            <ul>
-              <li><a href="<?php echo esc_url(home_url());?>">7</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">8</a></li>
-              <li><a href="<?php echo esc_url(home_url());?>">9</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </aside>
+    <!-- === カラー別 === -->
+    <li class="file-tab" role="presentation" tabindex="0">
+      <a href="javascript:void(0);" role="tab">カラー別</a>
+      <div class="index-panel" role="tabpanel" aria-hidden="true">
+        <?php
+        echo do_shortcode('[searchandfilter 
+          fields="color" 
+          types="checkbox"
+          operators="OR"
+          headings=" "
+          taxonomies="color"
+          post_types="post"
+          hide_empty="1"
+          order_by="name"
+        ]');
+        ?>
+      </div>
+    </li>
+  </ul>
+</aside>

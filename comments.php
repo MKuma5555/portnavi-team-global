@@ -1,14 +1,5 @@
 <?php
-
-/**
- * comments.php
- * コメント表示＆フォーム
- */
-
-// コメントが閉じられていて、コメントも無い場合は終了
-if (post_password_required()) {
-    return;
-}
+if (post_password_required()) return;
 ?>
 
 <div id="comments" class="comments-area">
@@ -19,59 +10,82 @@ if (post_password_required()) {
         <ul class="comment-list">
             <?php
             wp_list_comments(array(
-                'style'      => 'ul',
-                'short_ping' => true,
-                'avatar_size' => 0, // アバター不要
-                'callback'   => function ($comment, $args, $depth) {
+                'style'       => 'ul',
+                'short_ping'  => true,
+                'avatar_size' => 0,
+                'type'        => 'comment',
+                'max_depth'   => get_option('thread_comments_depth', 5),
+                'callback'    => function ($comment, $args, $depth) {
+                    $child_count = get_comments(array(
+                        'post_id' => $comment->comment_post_ID,
+                        'parent'  => $comment->comment_ID,
+                        'count'   => true,
+                        'status'  => 'approve',
+                    ));
             ?>
                 <li <?php comment_class(); ?> id="comment-<?php comment_ID(); ?>">
-                    <p><strong><?php comment_author(); ?></strong> — <br>
-                        <time datetime="<?php comment_time('c'); ?>">
-                            <?php comment_date('Y年n月j日 H:i'); ?>
-                        </time>
+                    <p>
+                        <strong><?php comment_author(); ?></strong> — <br>
+                        <time datetime="<?php comment_time('c'); ?>"><?php comment_date('Y年n月j日 H:i'); ?></time>
                     </p>
+
                     <div class="comment-content">
                         <?php comment_text(); ?>
                     </div>
-                </li>
-            <?php
-                }
-            ));
-            ?>
-        </ul>
 
+                    <div class="comment-actions">
+                        <?php
+                        // 返信リンク（入れ子）
+                        comment_reply_link(array_merge($args, array(
+                            'reply_text' => 'このコメントに返信',
+                            'depth'      => $depth,
+                            'max_depth'  => $args['max_depth'],
+                        )));
+
+                        // 子があるときだけ「返信を表示」
+                        if ($child_count) {
+                            echo '<button type="button" class="toggle-replies" aria-expanded="false" data-count="' . intval($child_count) . '">'
+                            . '返信を表示（' . intval($child_count) . '）'
+                            . '</button>';
+                        }
+                        ?>
+                    </div>
+                <?php
+                },
+                // ★ 閉じタグは end-callback に任せる
+                'end-callback' => function () {
+                    echo '</li>';
+                },
+            ));
+                ?>
+        </ul>
     <?php endif; ?>
 
     <?php
-    // コメントフォームのカスタマイズ
+    // ===== フォーム：ニックネーム必須・メール/URLは出さない =====
     $commenter = wp_get_current_commenter();
-    $req       = get_option('require_name_email');
-    $aria_req  = $req ? " aria-required='true' required" : '';
 
     $fields = array(
-        // ニックネーム（先に表示）
         'author'  => '<p class="comment-form-author">
-                <label for="author">ニックネーム <span class="required">*</span></label>
-                <input id="author" name="author" type="text"
-                        value="' . esc_attr($commenter['comment_author']) . '"
-                        size="30"' . $aria_req . ' />
-                </p>',
-        // 「次回のコメントで…」チェックボックスを消す
+        <label for="author">ニックネーム <span class="required">*</span></label>
+        <input id="author" name="author" type="text"
+        value="' . esc_attr($commenter['comment_author']) . '"
+        size="30" aria-required="true" required />
+    </p>',
         'cookies' => ''
     );
 
     comment_form(array(
-        'title_reply'          => '',          // 「コメントする」を非表示
-        'comment_notes_before' => '',          // 上の注意書きなし
-        'comment_notes_after'  => '',          // 下の注意書きなし
+        'title_reply'          => '',
+        'comment_notes_before' => '',
+        'comment_notes_after'  => '',
+        'logged_in_as'         => '',
         'label_submit'         => 'コメントを送信',
-        'fields'               => $fields,     // ← author と cookies だけ（email/url を出さない）
-        // コメント本文（ニックネームの後に表示）
+        'fields'               => $fields, // author のみ（email/url なし）
         'comment_field'        => '<p class="comment-form-comment">
-                            <label for="comment">コメント <span class="required">*</span></label>
-                            <textarea id="comment" name="comment" cols="45" rows="5" aria-required="true" required></textarea>
-                            </p>',
-        'logged_in_as'         => ''           // ログインメッセージを出さない
+        <label for="comment">コメント <span class="required">*</span></label>
+        <textarea id="comment" name="comment" cols="45" rows="5" aria-required="true" required></textarea>
+    </p>',
     ));
     ?>
 </div>

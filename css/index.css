@@ -227,12 +227,12 @@ header {
   padding-left: 25px;
 }
 
-.global-navigation__list > li {
+.global-navigation__list>li {
   padding-bottom: 20px;
   border-bottom: 2px solid #e7e9ee;
 }
 
-.global-navigation__list > li + li {
+.global-navigation__list>li+li {
   margin-top: 20px;
 }
 
@@ -303,7 +303,7 @@ header {
   font-size: 0.75rem;
 }
 
-.accordion__list li + li {
+.accordion__list li+li {
   margin-top: 21px;
 }
 
@@ -312,7 +312,7 @@ header {
 }
 
 /*-------------------------------------------
- ページの詳細トップパート
+ページの詳細トップパート
 -------------------------------------------*/
 .info-top {
   margin-bottom: 3.5rem;
@@ -511,66 +511,44 @@ footer {
   }
 }
 
-@media (max-width: 480px) {
-}
+@media (max-width: 480px) {}
 
 /*-------------------------------------------
-サイドナビ全体
+サイドナビ（1タブ＋フォーム1本化 用）
 -------------------------------------------*/
-/* サイドナビ本体：タブが収まる幅にする */
+:root {
+  --tab-bg: #4a2b00;
+  /* タブ背景色 */
+  --tab-text: #fffbf7;
+  /* タブ文字色 */
+  --panel-bg: #4a2b00;
+  /* パネル背景色（＝タブと同系） */
+  --panel-text: #fffbf7;
+  --panel-accent: #85602d;
+  /* チェックボックス色など */
+  --panel-link: #fffbf7;
+}
+
+/* サイドナビ本体 */
 .side-nav {
   position: fixed;
   top: 100px;
   right: 0;
   z-index: 100;
-  width: 35px;
+  width: 50px;
   pointer-events: auto;
 }
 
-/* タブ（li）ごとに“背骨”を擬似要素で描く */
-.side-nav .file-tab {
-  position: relative;
-  list-style: none;
-}
-
-/* 背骨共通部分：liの右側に縦帯 */
-.side-nav .file-tab::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  width: 6px;
-  height: 100vh;
-}
-
-/* 1つめの背骨 */
-.side-nav .file-tab:nth-child(1)::before {
-  background: #4a2b00;
-  top: -10px;
-  right: 0px;
-}
-
-/* 2つめの背骨 */
-.side-nav .file-tab:nth-child(2)::before {
-  background: #67420f;
-  top: -149px;
-  right: 5px;
-}
-
-/* 3つめの背骨 */
-.side-nav .file-tab:nth-child(3)::before {
-  background: #85602d;
-  top: -267px;
-  right: 10px;
-}
-
-/* タブ本体共通部分*/
-.side-nav .file-tab > a {
+/* タブ本体（縦書き） */
+.side-nav .file-tab>a {
   position: relative;
   z-index: 10;
-  display: block;
-  width: 30px;
-  padding: 12px 6px;
-  color: #fffbf7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  padding: 30px 6px;
+  color: var(--tab-text);
   font-weight: 500;
   text-decoration: none;
   writing-mode: vertical-rl;
@@ -579,31 +557,17 @@ footer {
   border-radius: 10px 0 0 10px;
   transform-origin: right center;
   transition: transform 0.2s ease, filter 0.2s ease;
-  border: 0px solid transparent;
+  border: 0 solid transparent;
   top: 50px;
-}
-
-/* ホバー */
-.side-nav .file-tab > a:hover {
-  transform: translateX(-4px);
-  filter: brightness(1.04);
-}
-
-/* 色バリエーション（任意） */
-.side-nav .file-tab:nth-child(1) > a {
-  background: #4a2b00;
+  background: var(--tab-bg);
   margin-left: 1px;
 }
 
-.side-nav .file-tab:nth-child(2) > a {
-  background: #67420f;
-  margin-left: -3px;
-}
-
-.side-nav .file-tab:nth-child(3) > a {
-  background: #85602d;
-  margin-left: -5px;
-}
+/* ホバー */
+/* .side-nav .file-tab > a:hover {
+  transform: translateX(-4px);
+  filter: brightness(1.04);
+} */
 
 /* 展開パネル：右のオフセットをタブ幅に合わせて調整 */
 .side-nav .index-panel {
@@ -611,97 +575,100 @@ footer {
   right: 50px;
   top: 50px;
   display: none;
-  min-width: 200px;
+  min-width: 310px;
+  max-height: 710px;
   border-radius: 10px;
-  padding: 10px 12px;
+  background: linear-gradient(to bottom,
+      #4a2b00 0%,
+      #67420f 50%,
+      #85602d 100%);
+  color: var(--panel-text);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+  padding: 20px 24px;
+  overflow-y: auto;
 }
 
-.side-nav .index-panel a {
-  color: #fffbf7;
-  border: 0px solid transparent;
-}
-
-.side-nav .file-tab:nth-child(1) .index-panel {
-  background: #4a2b00;
-}
-
-.side-nav .file-tab:nth-child(2) .index-panel {
-  background: #67420f;
-}
-
-.side-nav .file-tab:nth-child(3) .index-panel {
-  background: #85602d;
-}
-
-.side-nav .file-tab:hover .index-panel,
-.side-nav .file-tab:focus-within .index-panel {
-  display: block;
-}
-
-/* サイドバー内の Search & Filter をカード内リスト風に */
-.side-nav .searchandfilter ul {
-  list-style: none;
+/* 各カテゴリー heading */
+.side-nav .searchandfilter h4 {
+  border-top: 1px solid #fffbf7;
+  border-bottom: 1px solid #fffbf7;
   margin: 0;
-  padding: 0;
+  padding: 10px 5px;
 }
 
+/* WEBサイト（site_type） */
+.side-nav .searchandfilter li:nth-child(1) {
+  background: transparent;
+}
+
+/* デザイン（design_type） */
+.side-nav .searchandfilter li:nth-child(2) {
+  background: transparent;
+}
+
+/* カラー（color） */
+.side-nav .searchandfilter li:nth-child(3) {
+  background: transparent;
+}
+
+.side-nav .searchandfilter li .cat-item {
+  background: transparent;
+}
+
+.searchandfilter ul>li>ul:not(.children) {
+  padding: 16px 10px;
+}
+
+/* チェックボックス行 */
 .side-nav .searchandfilter li {
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
+/* 各チェックボックスの文字 */
 .side-nav .searchandfilter label {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
   font-size: 14px;
-  color: #2f1c00;
-  /* 読みやすい濃いめのブラウン */
-}
-
-.side-nav .searchandfilter input[type="checkbox"] {
-  accent-color: var(--color-main, #4a2b00);
-}
-
-/* 不要なら件数(○)を消す */
-.side-nav .searchandfilter .sf-count {
-  display: none;
-}
-
-/* /* submit ボタンが出ても非表示に（自動送信になってるかデータ入れた後に確認。必要あればボタン追加） */
-.side-nav .searchandfilter input[type="submit"] {
-  display: none;
-}
-
-/* サイドバー内の Search & Filter 共通文字色 */
-.side-nav .searchandfilter {
-  color: #fffbf7;
-  /* ← 全体の文字色（例: 明るい色に） */
-}
-
-/* チェックボックス横のラベル */
-.side-nav .searchandfilter label {
-  color: #fffbf7;
-  /* ← ラベルの文字色 */
+  color: var(--panel-text);
   font-weight: 500;
-  /* 太さを調整するなら */
 }
 
-/* Submit ボタン　＊要確認：要そうだったら追加
-.side-nav .searchandfilter input[type="submit"] {
-  background: var(--color-main, #4A2B00);
-  color: #FFFBF7;
-  border: 1px solid var(--color-main, #4A2B00);
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-} */
+/* ネイティブcheckboxの色 */
+.side-nav .searchandfilter input[type="checkbox"] {
+  accent-color: var(--panel-accent);
+}
 
-/* モバイルは非表示 */
-@media (max-width: 768px) {
-  .side-nav {
-    display: none;
-  }
+/* 件数：必要なら表示（今は表示したいのでblock）。非表示なら display:none; に */
+.side-nav .searchandfilter .sf-count {
+  display: inline-block;
+  opacity: .85;
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+/* 送信ボタン（auto_submit=0 のため表示する） */
+.side-nav .searchandfilter input[type="submit"] {
+  display: inline-block;
+  background: #fffbf7;
+  color: var(--tab-bg);
+  border: 1px solid var(--tab-bg);
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.side-nav .searchandfilter input[type="submit"]:hover {
+  background: var(--tab-bg);
+  color: #fffbf7;
+  border: 1px solid var(--tab-bg);
+}
+
+/* サイドバー内の共通文字色*/
+.side-nav .searchandfilter {
+  color: var(--panel-text);
 }
 
 /*-------------------------------------------
@@ -724,11 +691,13 @@ footer {
 #clear-button {
   display: none;
 }
+
 #keywords-search-results #results-list {
   padding: 5px 10px;
   min-width: 350px;
   min-height: 200px;
 }
+
 #keywords-search-results #results-list li {
   list-style: none;
   border-bottom: 1px solid #eee;
@@ -738,18 +707,49 @@ footer {
   align-items: flex-start;
   gap: 10px;
 }
+
 #keywords-search-results #results-lis .result-text {
   font-size: 0.75rem;
 }
+
 #keywords-search-results #results-list .result-img {
   width: 100px;
   height: auto;
 }
+
 #keywords-search-results #results-list .result-title {
   font-weight: 700;
   color: var(--color-main);
   margin-bottom: 5px;
 }
+
 /* #search-results div:hover {
   background: #f0f0f0;
 } */
+
+/*-------------------------------------------
+To Top
+-------------------------------------------*/
+.to-top {
+  display: none;
+  width: 50px;
+  height: 50px;
+  background-color: #4a2b00;
+  color: #fffbf7;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  transition: background-color 0.3s ease;
+}
+
+.to-top:hover {
+  background-color: #85602d;
+}

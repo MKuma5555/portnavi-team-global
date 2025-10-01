@@ -1,60 +1,24 @@
-<aside class="side-nav">
-  <ul>
-    <!-- === Webサイトカテゴリ === -->
-    <li class="file-tab" role="presentation" tabindex="0">
-      <a href="javascript:void(0);" role="tab">WEBサイト</a>
+<aside class="side-nav" aria-label="サイドバー">
+  <ul class="side-nav__tabs">
+    <li class="file-tab is-active" role="presentation" tabindex="0">
+      <a href="javascript:void(0);" role="tab" aria-selected="true">カテゴリー別で探す</a>
+
       <div class="index-panel" role="tabpanel" aria-hidden="false">
         <?php
-        echo do_shortcode('[searchandfilter 
-          fields="site_type" 
-          types="checkbox"
-          operators="OR"
-          headings=" "
-          taxonomies="site_type"
-          post_types="post"
-          hide_empty="1"
-          order_by="name"
-        ]');
-        ?>
-      </div>
-    </li>
-
-    <!-- === デザインカテゴリ === -->
-    <li class="file-tab" role="presentation" tabindex="0">
-      <a href="javascript:void(0);" role="tab">デザイン</a>
-      <div class="index-panel" role="tabpanel" aria-hidden="true">
-        <?php
-        echo do_shortcode('[searchandfilter 
-          fields="design_type" 
-          types="checkbox"
-          operators="OR"
-          headings=" "
-          taxonomies="design_type"
-          post_types="post"
-          hide_empty="1"
-          order_by="name"
-        ]');
-        ?>
-      </div>
-    </li>
-
-    <!-- === カラー別 === -->
-    <li class="file-tab" role="presentation" tabindex="0">
-      <a href="javascript:void(0);" role="tab">カラー別</a>
-      <div class="index-panel" role="tabpanel" aria-hidden="true">
-        <?php
-        echo do_shortcode('[searchandfilter 
-          fields="color" 
-          types="checkbox"
-          operators="OR"
-          headings=" "
-          taxonomies="color"
-          post_types="post"
-          hide_empty="1"
-          order_by="name"
-        ]');
+        echo do_shortcode('
+          [searchandfilter 
+            fields="site_type,design_type,color" 
+            types="checkbox,checkbox,checkbox" 
+            headings="WEBサイト,デザイン,カラー" 
+            operators="OR,OR,OR" 
+            post_types="post"
+            submit_label="絞り込む"
+          ]
+        ');
         ?>
       </div>
     </li>
   </ul>
+  <!-- モバイル表示時に使うオーバーレイ -->
+  <div class="side-nav__overlay" hidden></div>
 </aside>

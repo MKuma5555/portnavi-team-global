@@ -1,6 +1,7 @@
 <?php
 // すべてのアセット（スタイルとスクリプト）を読み込む単一の関数
-function my_theme_assets() {
+function my_theme_assets()
+{
     // スタイルを読み込む
     wp_enqueue_style(
         'reset_style',
@@ -124,6 +125,18 @@ add_action('init', function () {
     ]));
 });
 
+// サーバ側でも「名前＆メール必須」を無効化（保険）
+add_filter('pre_option_require_name_email', '__return_zero');
+// （未ログインでも投稿可にしたい場合の保険）
+add_filter('pre_option_comment_registration', '__return_zero');
+
+// コメントにコメント用の comment-reply.js を必要時のみ読み込み
+add_action('wp_enqueue_scripts', function () {
+  if (is_singular() && comments_open() && get_option('thread_comments')) {
+    wp_enqueue_script('comment-reply');
+  }
+});
+
 // テーマ有効化時にパーマリンク設定を再生成
 add_action('after_switch_theme', function () {
     flush_rewrite_rules();
@@ -133,7 +146,8 @@ add_action('after_switch_theme', function () {
 add_action('wp_ajax_live_tax_search', 'live_tax_search_callback');
 add_action('wp_ajax_nopriv_live_tax_search', 'live_tax_search_callback');
 
-function live_tax_search_callback() {
+function live_tax_search_callback()
+{
     $keyword = sanitize_text_field($_POST['keyword']);
     if (empty($keyword)) {
         wp_send_json([]);
@@ -207,7 +221,7 @@ function live_tax_search_callback() {
             wp_reset_postdata();
         }
     }
-    
+
     wp_send_json($results);
 }
 

@@ -57,7 +57,7 @@ body {
 /* 開いている時だけ：横並びでコメントドロワーの上付近に固定配置 */
 body.drawer-open .detail-page #firstview .icons {
     position: fixed;
-    top: -1%;
+    top: -15px;
     right: -190px;
     flex-direction: row;
     justify-content: flex-start;

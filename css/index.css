@@ -651,7 +651,6 @@ footer {
 /* 送信ボタン（auto_submit=0 のため表示する） */
 .side-nav .searchandfilter input[type="submit"] {
   display: inline-block;
-  margin-top: 10px;
   background: #fffbf7;
   color: var(--tab-bg);
   border: 1px solid var(--tab-bg);

@@ -23,13 +23,43 @@
                     </div>
 
                     <div class="icons">
+                        <!-- コメント -->
                         <a href="#" data-action="open-comments">
                             <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/Comment icon.png'); ?>" alt="コメント">
                         </a>
-                        <a href="#">
-                            <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/Like icon.png'); ?>" alt="いいね">
-                        </a>
-                        <a href="#">
+
+                        <!-- いいね -->
+                        <?php if (function_exists('wp_ulike')) : ?>
+                            <button type="button"
+                                class="like-proxy"
+                                data-like-target="wpulike-hidden-<?php the_ID(); ?>"
+                                aria-label="この作品にいいね">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/Like icon.png'); ?>" alt="" />
+                                <span class="like-count" aria-live="polite">
+                                    <?php echo (int) wp_ulike_get_post_likes(get_the_ID()); ?>
+                                </span>
+                            </button>
+
+                            <!-- 本物の WP ULike ボタン（視覚非表示） -->
+                            <div id="wpulike-hidden-<?php the_ID(); ?>" class="visually-hidden" aria-hidden="true">
+                                <?php
+                                // デフォルトの投稿タイプ(post)に対する ULike ボタンを出力
+                                // （プラグインの Ajax・重複制御・カウント更新を利用）
+                                wp_ulike('get', array(
+                                    'id'       => get_the_ID(),
+                                    'counter'  => true,           // カウントも出力（後で値を拾う用）
+                                    'logging'  =>  true,
+                                    'display_likers' => false
+                                ));
+                                ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- シェア -->
+                        <a href="#" class="share-open"
+                            data-share-url="<?php echo esc_url(get_permalink()); ?>"
+                            data-share-title="<?php echo esc_attr(get_the_title()); ?>"
+                            data-share-image="<?php echo esc_url(get_the_post_thumbnail_url(null, 'medium')); ?>">
                             <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/Share icon.png'); ?>" alt="シェア">
                         </a>
                     </div>
@@ -148,12 +178,6 @@
                     </section>
                 </div>
 
-                <!-- 前後ナビ（任意） -->
-                <nav class="detail-nav wrapper">
-                    <div class="prev"><?php previous_post_link('%link'); ?></div>
-                    <div class="next"><?php next_post_link('%link'); ?></div>
-                </nav>
-
         <?php endwhile;
         endif; ?>
 
@@ -170,4 +194,4 @@
 </main>
 
 <?php get_sidebar(); ?>
-<?php get_footer();
+<?php get_footer(); ?>

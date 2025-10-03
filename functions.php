@@ -33,6 +33,15 @@ function my_theme_assets()
         ['reset_style', 'main_style'],
         '1.0'
     );
+ 
+        wp_enqueue_style(
+            'frontpage_style',
+            get_template_directory_uri() . '/css/frontpage.css',
+            ['reset_style', 'main_style'],
+            '1.0'
+        );
+ 
+
     if (is_page('event')) {
         wp_enqueue_style(
             'event_style',
@@ -246,3 +255,7 @@ function create_eventpost_type() {
     );
 }
 add_action('init', 'create_eventpost_type');
+
+
+
+

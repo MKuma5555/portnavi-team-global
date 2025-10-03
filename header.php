@@ -24,7 +24,7 @@
         <nav>
           <ul class="nav-menu">
             <li><a href="<?php echo esc_url(home_url());?>">Home</a></li>
-            <li><a href="<?php echo esc_url(home_url('/category.html'));?>">Category</a></li>
+            <!-- <li><a href="<?php echo esc_url(home_url('/category.html'));?>">Category</a></li> -->
             <?php $page = get_page_by_path('event'); if ($page) :?>
               <li><a href="<?php echo esc_url(get_permalink($page->ID)); ?>">Event</a></li>
             <?php endif; ?>
@@ -66,9 +66,9 @@
             <nav id="js-global-navigation" class="global-navigation sp">
               <ul class="global-navigation__list">
                 <li>
-                  <a href="<?php echo esc_url(home_url());?>" class="global-navigation__link"> メニュー </a>
+                  <a href="<?php echo esc_url(home_url());?>" class="global-navigation__link">HOME </a>
                 </li>
-                <li>
+                <!-- <li>
                   <button
                     type="button"
                     class="global-navigation__link -accordion js-sp-accordion-trigger"
@@ -90,10 +90,11 @@
                       </li>
                     </ul>
                   </div>
-                </li>
-                <li>
-                  <a href="<?php echo esc_url(home_url());?>" class="global-navigation__link"> メニュー </a>
-                </li>
+                </li> -->
+                <?php $page = get_page_by_path('event'); if ($page) :?>
+              <li><a href="<?php echo esc_url(get_permalink($page->ID)); ?>" class="global-navigation__link">Event</a></li>
+            <?php endif; ?>
+               
               </ul>
               <div id="js-focus-trap" tabindex="0"></div>
             </nav>

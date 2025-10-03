@@ -3,6 +3,16 @@
 /* カラー配色共通化 */
 :root {
   --color-main: #4a2b00;
+  --tab-bg: #4a2b00;
+  /* タブ背景色 */
+  --tab-text: #fffbf7;
+  /* タブ文字色 */
+  --panel-bg: #4a2b00;
+  /* パネル背景色（＝タブと同系） */
+  --panel-text: #fffbf7;
+  --panel-accent: #85602d;
+  /* チェックボックス色など */
+  --panel-link: #fffbf7;
 }
 
 html,

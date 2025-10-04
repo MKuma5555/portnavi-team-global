@@ -13,6 +13,8 @@
 
   <div class="wrapper" id="front-page">
     <ul class="cards-list">
+
+  
     <?php 
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -32,17 +34,48 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
             <div class="card">
               <div class="card-image-box">
 
-                <a href="<?php the_permalink(); ?>">
-                  <?php if ( has_post_thumbnail() ) : ?>
-                    <?php the_post_thumbnail( 'medium', array( 'class' => 'card-image' ) ); ?>
-                    <?php else: ?>
-                      <!-- 画像ダミー -->
-                      <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/dummy-300X200.png' ); ?>" alt="<?php the_title(); ?>">
-                  <?php endif; ?>
-                </a>
-                </div>
-            
+              <a href="<?php the_permalink(); ?>">
+    <?php
+    $image_displayed = false;
+    // 1. ACF: 'hero_image' フィールドから画像を取得
+    if (function_exists('get_field')) {
+        $hero_image = get_field('hero_image');
 
+        if ($hero_image) {
+            // ACFフィールドの値が画像IDの場合（推奨される戻り値）
+            if (is_numeric($hero_image)) {
+                echo wp_get_attachment_image((int)$hero_image, 'medium', false, ['class' => 'card-image']);
+                $image_displayed = true;
+            }
+            // ACFフィールドの値が画像配列の場合
+            elseif (is_array($hero_image) && !empty($hero_image['ID'])) {
+                echo wp_get_attachment_image((int)$hero_image['ID'], 'medium', false, ['class' => 'card-image']);
+                $image_displayed = true;
+            }
+            // ACFフィールドの値が画像URLの場合
+            elseif (is_array($hero_image) && !empty($hero_image['url'])) {
+                 echo '<img class="card-image " src="' . esc_url($hero_image['url']) . '" alt="' . esc_attr(get_the_title()) . '">';
+                 $image_displayed = true;
+            }
+        }
+    }
+
+    // 2. ACF画像が取得できなかった場合、アイキャッチ画像を表示
+    if (!$image_displayed && has_post_thumbnail()) {
+        the_post_thumbnail('medium', ['class' => 'card-image', 'alt' => esc_attr(get_the_title())]);
+        $image_displayed = true;
+    }
+
+    // 3. どちらもなかった場合、ダミー画像を表示
+    if (!$image_displayed) {
+        ?>
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/img/cards/dummy-300X200.png' ); ?>" alt="<?php the_title(); ?>" class="card-image">
+        <?php
+    }
+    ?>
+</a>
+         
+                </div>
               <div class="card-body">
                 <div class="card-top">
                   <a href="<?php the_permalink(); ?>">
@@ -51,75 +84,42 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                   <!-- 表示するタグの数を調整 -->
                   <ul class="card-tags">
                     <?php
-                  
-
-                      // WP管理画面んで作成したタグとカテゴリー
-                      $categories = get_the_category();
-                      $originalTags = get_the_tags();
-                      if(!empty($originalTags)){
-                        foreach ( $originalTags as $tag ) {
-                        echo '<li><p class="card-tag-list">' . esc_html( $tag->name ) . '</p></li>';
-                        }
-                      }
-                      if ( !empty( $categories ) ) {
-                        $count = count($categories);
-                        $i = 0;
-                         foreach ( $categories as $cat ) {
-                           if(strtolower($cat-> name) === "uncategorized"){
-                            continue;
-                           }
-                           if($i < 2){
-                             echo '<li><p class="card-tag-list">' . esc_html( $cat->name ) . '</p></li>';
-                           } 
-                           $i++;
-                         }
-                         if($i >= 3){
-                           echo '<p class="card-tag-list">...</p>';
-                         }
-                       } 
-
                       //NOTE： CSS上タグを多く出せないのでいっそのことなしにする？
                       // //タクソノミーで作成しているカテゴリーとタグ等
-                      // $post_id = get_the_ID();
+                      $post_id = get_the_ID();
 
-                      // // site_type
-                      // $site_types = get_the_terms($post_id, 'site_type');
-                      // if ( !empty($site_types) && !is_wp_error($site_types) ) {
-                      //     foreach ($site_types as $term) {
-                      //         echo '<li><p class="card-tag-list">' . esc_html($term->name) . '</p></li>';
-                      //     }
-                      // }
-
-                      // // design_type
-                      // $design_types = get_the_terms($post_id, 'design_type');
-                      // if ( !empty($design_types) && !is_wp_error($design_types) ) {
-                      //     foreach ($design_types as $term) {
-                      //         echo '<li><p class="card-tag-list">' . esc_html($term->name) . '</p></li>';
-                      //     }
-                      // }
-
-                      // // color
-                      // $colors = get_the_terms($post_id, 'color');
-                      // if ( !empty($colors) && !is_wp_error($colors) ) {
-                      //     foreach ($colors as $term) {
-                      //         echo '<li><p class="card-tag-list">' . esc_html($term->name) . '</p></li>';
-                      //     }
-                      // }
-
-                      // // tech_stack
-                      // $techs = get_the_terms($post_id, 'tech_stack');
-                      // if ( !empty($techs) && !is_wp_error($techs) ) {
-                      //     foreach ($techs as $term) {
-                      //         echo '<li><p class="card-tag-list">' . esc_html($term->name) . '</p></li>';
-                      //     }
-                      // }
-              
-                      
+                      // design_type
+                      $design_types = get_the_terms($post_id, 'design_type');
+                      if ( !empty($design_types) && !is_wp_error($design_types) ) {
+                        // デザインの種類の一番初めのデータのタグのみ表示
+                        $first_term = $design_types[0];
+                            echo '<li><p class="card-tag-list">' . esc_html($first_term->name) . '</p></li>';
+                      }
                     ?>
                   </ul>
                 </div>
-                <p class="card-text"><?php echo get_the_excerpt(); ?></p>
-              </div>
+                <p class="card-text">
+                  <?php
+                  // ACFがあればそれを取得、なければ空文字列
+                  $text = function_exists('get_field') ? get_field('overview') : '';
+                  if (empty($text)) {
+                      $content = get_the_content();
+                      $text = wp_strip_all_tags(strip_shortcodes($content));
+                  }
+                  
+                  $limit = 150;
+                  $length = mb_strlen($text);
+
+                  // 150文字を超えていたら切り詰め、「...」を付けて安全に出力
+                  if ($length > $limit) {
+                      echo esc_html(mb_substr($text, 0, $limit) . '...');
+                  } else {
+                      // それ以外はそのまま安全に出力
+                      echo esc_html($text); 
+                  }
+                  ?>
+                </p>
+                            </div>
 
               <div class="card-bottom">
                   <p class="post-date"><?php echo get_the_date('Y/m/d'); ?></p>

@@ -183,7 +183,7 @@
   }
 
   .card {
-    max-width: 20rem;
+    width: 80vw;
   }
 
   .card-text {

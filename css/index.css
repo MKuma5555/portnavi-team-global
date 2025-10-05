@@ -211,12 +211,10 @@ header {
   width: 300px;
   visibility: hidden;
   padding-top: 60px;
-  background: linear-gradient(
-    to bottom,
-    rgba(74, 43, 0, 0.9) 0%,
-    rgba(103, 66, 15, 0.9) 50%,
-    rgba(133, 96, 45, 0.9) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(74, 43, 0, 0.9) 0%,
+      rgba(103, 66, 15, 0.9) 50%,
+      rgba(133, 96, 45, 0.9) 100%);
   transition: 0.4s;
 }
 
@@ -232,12 +230,12 @@ header {
   padding-left: 25px;
 }
 
-.global-navigation__list > li {
+.global-navigation__list>li {
   padding-bottom: 20px;
   border-bottom: 2px solid #e7e9ee;
 }
 
-.global-navigation__list > li + li {
+.global-navigation__list>li+li {
   margin-top: 20px;
 }
 
@@ -308,7 +306,7 @@ header {
   font-size: 0.75rem;
 }
 
-.accordion__list li + li {
+.accordion__list li+li {
   margin-top: 21px;
 }
 
@@ -353,14 +351,17 @@ footer {
   pointer-events: auto;
 }
 
+
 /* タブ本体（縦書き） */
-.side-nav .file-tab > a {
+.side-nav .side-tab {
   position: relative;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
+  min-width: 44px;
+  min-height: 120px;
   padding: 30px 6px;
   color: var(--tab-text);
   font-weight: 500;
@@ -377,8 +378,6 @@ footer {
   margin-left: 1px;
 }
 
-/* ホバー */
-
 /* 展開パネル：右のオフセットをタブ幅に合わせて調整 */
 .side-nav .index-panel {
   position: absolute;
@@ -393,6 +392,9 @@ footer {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   padding: 20px 24px;
   overflow-y: auto;
+}
+.index-panel[hidden] {
+  display: none !important;
 }
 
 /* 各カテゴリー heading */
@@ -422,7 +424,7 @@ footer {
   background: transparent;
 }
 
-.searchandfilter ul > li > ul:not(.children) {
+.searchandfilter ul>li>ul:not(.children) {
   padding: 16px 10px;
 }
 
@@ -442,7 +444,7 @@ footer {
   font-weight: 500;
 }
 
-/* ネイティブcheckboxの色 */
+/* checkboxの色 */
 .side-nav .searchandfilter input[type="checkbox"] {
   accent-color: var(--panel-accent);
 }
@@ -596,6 +598,11 @@ To Top
 
   header .hamburger {
     display: block;
+  }
+
+  .side-nav .index-panel {
+    min-width: 50vw;
+    max-height: 70vh;
   }
 }
 

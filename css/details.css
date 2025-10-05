@@ -421,6 +421,16 @@ iconsのレスポンシブ
 /*-------------------------------------------
 Tags レスポンシブ
 -------------------------------------------*/
+@media (max-width: 768px) {
+    .detail-page #tags .tags {
+        gap: 10px;
+    }
+
+    .detail-page #firstview #tags {
+        margin-bottom: 40px;
+    }
+}
+
 @media (max-width: 425px) {
     .detail-page #tags .flex-tags {
         flex-direction: column;

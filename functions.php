@@ -110,19 +110,19 @@ add_action('init', function () {
     ];
 
     register_taxonomy('site_type', ['post'], array_merge($common, [
-        'labels' => ['name' => 'Webサイトカテゴリ別'],
+        'labels' => ['name' => '作品タイプ'],
         'hierarchical' => true,
         'rewrite' => ['slug' => 'site-type', 'with_front' => false],
     ]));
 
     register_taxonomy('design_type', ['post'], array_merge($common, [
-        'labels' => ['name' => 'デザインカテゴリ別'],
+        'labels' => ['name' => 'デザイン'],
         'hierarchical' => false,
         'rewrite' => ['slug' => 'design', 'with_front' => false],
     ]));
 
     register_taxonomy('color', ['post'], array_merge($common, [
-        'labels' => ['name' => 'カラー別'],
+        'labels' => ['name' => 'カラー'],
         'hierarchical' => false,
         'rewrite' => ['slug' => 'color', 'with_front' => false],
     ]));

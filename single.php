@@ -98,9 +98,20 @@
                                 <?php
                                 $site = function_exists('get_field') ? get_field('site_url')   : get_post_meta(get_the_ID(), 'site_url', true);
                                 $git  = function_exists('get_field') ? get_field('github_url') : get_post_meta(get_the_ID(), 'github_url', true);
-                                if ($site) echo '<li><a class="tag" href="' . esc_url($site) . '" target="_blank" rel="noopener">Visit Web Site</a></li>';
-                                if ($git) echo '<li><a class="tag" href="' . esc_url($git) . '" target="_blank" rel="noopener">GitHub</a></li>';
+
+                                if ($site) {
+                                    echo '<li><a class="link-tag" href="' . esc_url($site) . '" target="_blank" rel="noopener">';
+                                    echo '<img class="site-visit" src="' . esc_url(get_template_directory_uri()) . '/img/icons/visit-website.png" alt=""> Visit サイトへ';
+                                    echo '</a></li>';
+                                }
+
+                                if ($git) {
+                                    echo '<li><a class="link-tag" href="' . esc_url($git) . '" target="_blank" rel="noopener">';
+                                    echo '<img class="github-visit" src="' . esc_url(get_template_directory_uri()) . '/img/icons/visit-github.png" alt=""> GitHubを見る';
+                                    echo '</a></li>';
+                                }
                                 ?>
+
                             </ul>
                         </div>
                     </div>
@@ -178,6 +189,7 @@
                         ?>
                     </section>
                 </div>
+
 
         <?php endwhile;
         endif; ?>

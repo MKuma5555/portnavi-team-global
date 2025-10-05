@@ -91,11 +91,25 @@ body.drawer-open .detail-page #firstview .icons {
 }
 
 .detail-page #tags .links {
-    width: 30%;
+    min-width: 30%;
     display: flex;
     flex-direction: column;
     gap: 15px;
     align-items: flex-end;
+}
+
+
+.detail-page #tags .link-tag {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 18px;
+}
+
+.detail-page #tags .site-visit,
+.github-visit {
+    width: 20px;
+    height: 20px;
 }
 
 
@@ -110,13 +124,6 @@ body.drawer-open .detail-page #firstview .icons {
     list-style: none;
     border: solid 1px var(--color-main);
     border-radius: 10px;
-}
-
-.detail-page #tags .tag:hover {
-    background: var(--color-main);
-    color: #FFFBF7;
-    border-color: var(--color-main);
-    opacity: 1;
 }
 
 .detail-page .project-info {
@@ -377,7 +384,7 @@ body.drawer-open .wrapper {
     color: #FFFBF7;
 }
 
-/* スマホでは縮小しない（必要なら） */
+/* スマホでは縮小しない*/
 @media (max-width: 768px) {
     body.drawer-open #appFrame {
         transform: none;
@@ -579,6 +586,18 @@ Share modal
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+}
+
+@media (max-width: 350px) {
+
+    .share-link-box {
+        flex-direction: column;
+    }
+
+    .share-modal__close {
+        right: 8px;
+        top: 8px;
+    }
 }
 
 .share-link-box button:hover {

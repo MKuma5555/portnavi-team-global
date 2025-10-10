@@ -354,13 +354,15 @@ footer {
 }
 
 /* タブ本体（縦書き） */
-.side-nav .file-tab > a {
+.side-nav .side-tab {
   position: relative;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
+  min-width: 44px;
+  min-height: 120px;
   padding: 30px 6px;
   color: var(--tab-text);
   font-weight: 500;
@@ -377,8 +379,6 @@ footer {
   margin-left: 1px;
 }
 
-/* ホバー */
-
 /* 展開パネル：右のオフセットをタブ幅に合わせて調整 */
 .side-nav .index-panel {
   position: absolute;
@@ -393,6 +393,9 @@ footer {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   padding: 20px 24px;
   overflow-y: auto;
+}
+.index-panel[hidden] {
+  display: none !important;
 }
 
 /* 各カテゴリー heading */
@@ -442,7 +445,7 @@ footer {
   font-weight: 500;
 }
 
-/* ネイティブcheckboxの色 */
+/* checkboxの色 */
 .side-nav .searchandfilter input[type="checkbox"] {
   accent-color: var(--panel-accent);
 }
@@ -598,9 +601,13 @@ To Top
   }
   #keywords-search-results.is-active {
     display: none;
+
+    .side-nav .index-panel {
+      min-width: 50vw;
+      max-height: 70vh;
+    }
   }
 }
-
 @media (max-width: 480px) {
   .header__nav-area {
     width: 80vw;

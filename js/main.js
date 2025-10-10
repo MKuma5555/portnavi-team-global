@@ -407,3 +407,37 @@ function handleBackToTop() {
     console.log(`back to top btn clicked 123`);
   }
 }
+
+// ==========================
+// サイドナビ開閉制御
+// ==========================
+$(function () {
+  const $sideNav = $('.side-nav');
+  const $button = $sideNav.find('.side-tab');
+  const $panel = $sideNav.find('.index-panel');
+  const $navArea = $('#navigation'); // ← ハンバーガー領域
+
+  // 初期状態を閉じる
+  $button.attr('aria-expanded', 'false');
+  $panel.attr('hidden', true);
+
+  // クリックで開閉
+  $button.on('click', function (e) {
+    e.stopPropagation();
+
+    // ハンバーガーが表示中かつ -active のときだけブロック
+    if ($navArea.hasClass('-active') && $navArea.is(':visible')) return;
+
+    const isOpen = $(this).attr('aria-expanded') === 'true';
+    $(this).attr('aria-expanded', String(!isOpen));
+    $panel.attr('hidden', isOpen);
+  });
+
+  // 欄外クリックで閉じる
+  $(document).on('click', function (e) {
+    if (!$(e.target).closest('.side-nav').length) {
+      $button.attr('aria-expanded', 'false');
+      $panel.attr('hidden', true);
+    }
+  });
+});

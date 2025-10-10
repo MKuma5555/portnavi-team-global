@@ -19,8 +19,12 @@
                         } elseif (has_post_thumbnail()) {
                             the_post_thumbnail('large', ['class' => 'fv', 'alt' => esc_attr(get_the_title())]);
                         }
+                        else {
+                            // ★ ACFもアイキャッチもない場合のダミー画像表示（ここを追加）
+                            echo '<img class="fv" src="' . esc_url(get_template_directory_uri() . '/img/cards/dummy-1920X1080.png') . '" alt="' . esc_attr(get_the_title()) . '">';
+                        }
                         ?>
-                    </div>
+                        </div>
 
                     <div class="icons">
                         <!-- コメント -->
@@ -98,9 +102,20 @@
                                 <?php
                                 $site = function_exists('get_field') ? get_field('site_url')   : get_post_meta(get_the_ID(), 'site_url', true);
                                 $git  = function_exists('get_field') ? get_field('github_url') : get_post_meta(get_the_ID(), 'github_url', true);
-                                if ($site) echo '<li><a class="tag" href="' . esc_url($site) . '" target="_blank" rel="noopener">Visit Web Site</a></li>';
-                                if ($git) echo '<li><a class="tag" href="' . esc_url($git) . '" target="_blank" rel="noopener">GitHub</a></li>';
+
+                                if ($site) {
+                                    echo '<li><a class="link-tag" href="' . esc_url($site) . '" target="_blank" rel="noopener">';
+                                    echo '<img class="site-visit" src="' . esc_url(get_template_directory_uri()) . '/img/icons/visit-website.png" alt=""> Visit サイトへ';
+                                    echo '</a></li>';
+                                }
+
+                                if ($git) {
+                                    echo '<li><a class="link-tag" href="' . esc_url($git) . '" target="_blank" rel="noopener">';
+                                    echo '<img class="github-visit" src="' . esc_url(get_template_directory_uri()) . '/img/icons/visit-github.png" alt=""> GitHubを見る';
+                                    echo '</a></li>';
+                                }
                                 ?>
+
                             </ul>
                         </div>
                     </div>
@@ -113,71 +128,88 @@
                         <div class="project-info-card">
                             <div class="project-info-body">
                                 <?php
-                                // ACF: overview があれば優先表示、無ければ WP 本文にフォールバック
-                                if (function_exists('get_field')) {
-                                    $overview = get_field('overview');
-                                } else {
-                                    $overview = '';
-                                }
+                                $pid = get_the_ID();
 
-                                if ($overview) {
-                                    // WYSIWYG ならそのまま安全に出力
-                                    echo wp_kses_post($overview);
+                                // 1) overview（ACF優先）
+                                $overview = function_exists('get_field') ? get_field('overview', $pid) : '';
+                                $has_overview = strlen(trim(wp_strip_all_tags((string) $overview))) > 0;
+
+                                // 2) 本文の生データ（the_contentは使わない＝ULike混入防止）
+                                $raw = (string) get_post_field('post_content', $pid);
+                                $has_raw = strlen(trim(wp_strip_all_tags($raw))) > 0;
+
+                                if ($has_overview) {
+                                    echo wp_kses_post(is_string($overview) ? wpautop($overview) : $overview);
+                                } elseif ($has_raw) {
+                                    echo do_shortcode(wpautop($raw));
                                 } else {
-                                    // フォールバック：本文
-                                    the_content();
+                                    echo '<p class="no-content">N/A</p>';
                                 }
                                 ?>
-
                             </div>
                         </div>
                     </section>
 
                     <!-- ===== ターゲット/ペルソナ（ACF: persona） ===== -->
-                    <?php
-                    $persona = function_exists('get_field') ? get_field('persona') : get_post_meta(get_the_ID(), 'persona', true);
-                    if ($persona) : ?>
-                        <section class="project-info">
-                            <h2>ターゲット/ペルソナ</h2>
-                            <div class="project-info-card">
-                                <div class="project-info-body">
-                                    <?php echo wp_kses_post(is_string($persona) ? wpautop($persona) : $persona); ?>
-                                </div>
+                    <section class="project-info">
+                        <h2>ターゲット/ペルソナ</h2>
+                        <div class="project-info-card">
+                            <div class="project-info-body">
+                                <?php
+                                $persona = function_exists('get_field') ? get_field('persona', $pid) : get_post_meta($pid, 'persona', true);
+                                if (strlen(trim(wp_strip_all_tags((string) $persona))) > 0) {
+                                    echo wp_kses_post(is_string($persona) ? wpautop($persona) : $persona);
+                                } else {
+                                    echo '<p class="no-content">N/A</p>';
+                                }
+                                ?>
                             </div>
-                        </section>
-                    <?php endif; ?>
+                        </div>
+                    </section>
 
                     <!-- ===== こだわりポイント（ACF: highlights） ===== -->
-                    <?php
-                    $highlights = function_exists('get_field') ? get_field('highlights') : get_post_meta(get_the_ID(), 'highlights', true);
-                    if ($highlights) : ?>
-                        <section class="project-info">
-                            <h2>こだわりポイント</h2>
-                            <div class="project-info-card">
-                                <div class="project-info-body">
-                                    <?php echo wp_kses_post(is_string($highlights) ? wpautop($highlights) : $highlights); ?>
-                                </div>
+                    <section class="project-info">
+                        <h2>こだわりポイント</h2>
+                        <div class="project-info-card">
+                            <div class="project-info-body">
+                                <?php
+                                $highlights = function_exists('get_field') ? get_field('highlights', $pid) : get_post_meta($pid, 'highlights', true);
+                                if (strlen(trim(wp_strip_all_tags((string) $highlights))) > 0) {
+                                    echo wp_kses_post(is_string($highlights) ? wpautop($highlights) : $highlights);
+                                } else {
+                                    echo '<p class="no-content">N/A</p>';
+                                }
+                                ?>
                             </div>
-                        </section>
-                    <?php endif; ?>
+                        </div>
+                    </section>
 
                     <!-- ===== サイト全体像（ACF: full_screenshot） ===== -->
-                    <section id="screenshots">
-                        <h2 class="sec-title">サイト全体像</h2>
-                        <?php
-                        $shot = function_exists('get_field') ? get_field('full_screenshot') : get_post_meta(get_the_ID(), 'full_screenshot', true);
-                        if ($shot) {
-                            if (is_numeric($shot)) {
-                                echo wp_get_attachment_image((int)$shot, 'xlarge');
-                            } elseif (is_array($shot) && !empty($shot['ID'])) {
-                                echo wp_get_attachment_image((int)$shot['ID'], 'xlarge');
-                            } else {
-                                echo '<img src="' . esc_url($shot) . '" alt="">';
-                            }
-                        }
-                        ?>
+                    <section class="project-info">
+                        <h2>サイト全体像</h2>
+                        <div class="project-info-card">
+                            <div class="project-info-body">
+                                <?php
+                                $pid = get_the_ID();
+                                $shot = function_exists('get_field') ? get_field('full_screenshot', $pid) : get_post_meta($pid, 'full_screenshot', true);
+
+                                if ($shot) {
+                                    if (is_numeric($shot)) {
+                                        echo wp_get_attachment_image((int)$shot, 'xlarge');
+                                    } elseif (is_array($shot) && !empty($shot['ID'])) {
+                                        echo wp_get_attachment_image((int)$shot['ID'], 'xlarge');
+                                    } else {
+                                        echo '<img src="' . esc_url($shot) . '" alt="">';
+                                    }
+                                } else {
+                                    echo '<p class="no-content">N/A</p>';
+                                }
+                                ?>
+                            </div>
+                        </div>
                     </section>
                 </div>
+
 
         <?php endwhile;
         endif; ?>

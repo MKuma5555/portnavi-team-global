@@ -79,9 +79,10 @@
 
 .card-top .card-tags li {
   border: 0.5px solid var(--color-main);
-  border-radius: 0.5rem;
+  border-radius: 5px;
   font-size: clamp(0.5rem, 2vw, 0.7rem);
   padding: 0 0.25rem;
+  background-color: #FBE36F;
 }
 
 .card-title {

@@ -447,7 +447,7 @@ footer {
 
 /* checkboxの色 */
 .side-nav .searchandfilter input[type="checkbox"] {
-  accent-color: var(--panel-accent);
+  accent-color: #FFEA1E;
 }
 
 /* 件数：必要なら表示（今は表示したいのでblock）。非表示なら display:none; に */

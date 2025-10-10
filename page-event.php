@@ -62,14 +62,28 @@
           </article>
         <?php endwhile; ?>
 
-        <!-- ページネーション -->
-        <div class="navigation pagination">
+        <!-- ✅ ページネーション -->
+        <div class="nav-links navigation pagination">
           <?php
-          the_posts_pagination(array(
-            'mid_size'  => 1,
+          $big = 999999999;
+          $pagination = paginate_links(array(
+            'base'      => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+            'format'    => '?paged=%#%',
+            'current'   => max(1, get_query_var('paged')),
+            'total'     => $the_query->max_num_pages,
+            'mid_size'  => 2,
             'prev_text' => '« 前へ',
             'next_text' => '次へ »',
+            'type'      => 'array',
           ));
+
+          if (!empty($pagination)) {
+            echo '<ul class="page-numbers">';
+            foreach ($pagination as $page) {
+              echo '<li>' . $page . '</li>';
+            }
+            echo '</ul>';
+          }
           ?>
         </div>
 

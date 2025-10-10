@@ -49,11 +49,11 @@ function renderResults(data) {
       if (item.overview_raw) {
         let overview = item.overview_raw.replace(/(<([^>]+)>)/gi, "");
         postText.textContent =
-          overview.length > 50 ? overview.substring(0, 50) + "…" : overview;
+          overview.length > 30 ? overview.substring(0, 30) + "…" : overview;
       } else if (item.excerpt) {
         postText.textContent =
-          item.excerpt.length > 50
-            ? item.excerpt.substring(0, 50) + "…"
+          item.excerpt.length > 30
+            ? item.excerpt.substring(0, 30) + "…"
             : item.excerpt;
       }
 

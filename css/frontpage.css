@@ -101,7 +101,7 @@
   -webkit-box-orient: vertical;
   margin-bottom: 0.5rem;
   font-weight: 400;
-  color: #6b7280;
+  color: var(--color-main);
   transition: all 0.3s ease;
 }
 
@@ -125,11 +125,30 @@
   gap: 3%;
 }
 
+/* Post view */
 .card-icons .post-view {
+  display: block;
+  position: relative;
+  line-height: normal;
+  margin: 0;
+  padding: 10px 0;
+}
+.post-view .post-view-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3%;
+}
+
+.post-view span {
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 28px;
+  display: inline-block;
+  color: #616161;
+  text-align: center;
+  font-weight: 600;
+  vertical-align: middle;
+  padding: 5px 5px 10px 5px;
 }
 
 #front-page .card-image-box {

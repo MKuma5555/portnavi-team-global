@@ -483,6 +483,10 @@ footer {
 -------------------------------------------*/
 #keywords-search-results {
   display: none;
+}
+
+#keywords-search-results.is-active {
+  display: block;
   background: #fff;
   border: 1px solid #ddd;
   max-width: 350px;
@@ -494,7 +498,6 @@ footer {
   top: 130px;
   z-index: 9999;
 }
-
 #clear-button {
   display: none;
 }
@@ -529,10 +532,6 @@ footer {
   color: var(--color-main);
   margin-bottom: 5px;
 }
-
-/* #search-results div:hover {
-  background: #f0f0f0;
-} */
 
 /*-------------------------------------------
 To Top
@@ -596,6 +595,9 @@ To Top
 
   header .hamburger {
     display: block;
+  }
+  #keywords-search-results.is-active {
+    display: none;
   }
 }
 

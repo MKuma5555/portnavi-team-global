@@ -422,12 +422,31 @@ iconsのレスポンシブ
 Tags レスポンシブ
 -------------------------------------------*/
 @media (max-width: 768px) {
+
+    .detail-page h2 {
+        font-size: 18px;
+    }
+    
     .detail-page #tags .tags {
         gap: 10px;
+        font-size: 12px;
+    }
+
+    .detail-page #tags .tags span {
+        padding: 8px;
     }
 
     .detail-page #firstview #tags {
         margin-bottom: 40px;
+    }
+
+    .detail-page #firstview h2 {
+        padding-block: 10px;
+        font-size: 18px;
+    }
+
+    .detail-page #tags .flex-tags {
+        padding-top: 10px;
     }
 }
 

@@ -78,47 +78,6 @@ header {
 }
 
 /*-------------------------------------------
-サイドナビ全体を右端に固定
--------------------------------------------*/
-.side-nav {
-  position: fixed;
-  top: 150px;
-  right: 0;
-  background: #f7f7f7;
-  flex-direction: row;
-  align-items: flex-end;
-  margin-bottom: 12px;
-  background: transparent;
-  z-index: 1000;
-}
-
-.file-tab a {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  margin-bottom: 2rem;
-  border: 1px solid var(--color-main);
-}
-
-/* インデックスパネルはデフォルト非表示 */
-.index-panel {
-  display: none;
-  position: absolute;
-  right: 50px;
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 8px;
-  border-radius: 8px 0 8px 8px;
-  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.15);
-  min-width: 120px;
-}
-
-/* ホバー時に表示 */
-.file-tab:hover .index-panel,
-.file-tab:focus-within .index-panel {
-  display: block;
-}
-
-/*-------------------------------------------
 ハンバーガーメニュー
 -------------------------------------------*/
 
@@ -384,9 +343,9 @@ footer {
   position: absolute;
   right: 50px;
   top: 50px;
-  display: none;
-  min-width: 310px;
-  max-height: 710px;
+  display: block;
+  min-width: 37vw;
+  max-height: 75vh;
   border-radius: 10px;
   background: linear-gradient(to bottom, #4a2b00 0%, #67420f 50%, #85602d 100%);
   color: var(--panel-text);
@@ -601,11 +560,10 @@ To Top
   }
   #keywords-search-results.is-active {
     display: none;
-
-    .side-nav .index-panel {
-      min-width: 50vw;
-      max-height: 70vh;
-    }
+  }
+  .side-nav .index-panel {
+    min-width: 50vw;
+    max-height: 70vh;
   }
 }
 @media (max-width: 480px) {

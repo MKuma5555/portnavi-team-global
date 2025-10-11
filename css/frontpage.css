@@ -87,7 +87,7 @@ height: 400px;
 }
 
 .card-title {
-  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  font-size: clamp(0.8rem, 2.1vw, 0.9rem);
   font-weight: 700;
   color: var(--color-main);
   margin-bottom: 0.5rem;
@@ -106,7 +106,7 @@ height: 400px;
 
 .card-text {
   overflow: hidden;
-  max-height:30px
+  max-height:30px;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -227,6 +227,6 @@ height: 400px;
   }
 
   .info-top p {
-    font-size: 2.8vw;
+    font-size: 2.5vw;
   }
 }

@@ -149,14 +149,6 @@ $paged   = max(1, (int) get_query_var('paged'));
             <?php endif; ?>
         </ul>
 
-        <?php
-        // ページネーション
-        the_posts_pagination(array(
-            'mid_size'  => 1,
-            'prev_text' => '«',
-            'next_text' => '»',
-        ));
-        ?>
     </div>
 </main>
 

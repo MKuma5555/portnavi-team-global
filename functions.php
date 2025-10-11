@@ -10,11 +10,12 @@ function my_theme_assets()
         '1.0'
     );
     wp_enqueue_style(
-        'google-fonts-monoton',
-        'https://fonts.googleapis.com/css2?family=Monoton&display=swap',
+        'google-fonts',
+        'https://fonts.googleapis.com/css2?family=Monoton&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans:wght@400;700&display=swap',
         [],
         null
     );
+
     wp_enqueue_style(
         'main_style',
         get_template_directory_uri() . '/css/main.css',
@@ -33,14 +34,14 @@ function my_theme_assets()
         ['reset_style', 'main_style'],
         '1.0'
     );
- 
-        wp_enqueue_style(
-            'frontpage_style',
-            get_template_directory_uri() . '/css/frontpage.css',
-            ['reset_style', 'main_style'],
-            '1.0'
-        );
- 
+
+    wp_enqueue_style(
+        'frontpage_style',
+        get_template_directory_uri() . '/css/frontpage.css',
+        ['reset_style', 'main_style'],
+        '1.0'
+    );
+
 
     if (is_page('event')) {
         wp_enqueue_style(
@@ -141,9 +142,9 @@ add_filter('pre_option_comment_registration', '__return_zero');
 
 // コメントにコメント用の comment-reply.js を必要時のみ読み込み
 add_action('wp_enqueue_scripts', function () {
-  if (is_singular() && comments_open() && get_option('thread_comments')) {
-    wp_enqueue_script('comment-reply');
-  }
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
 });
 
 // テーマ有効化時にパーマリンク設定を再生成
@@ -167,42 +168,43 @@ add_action('wp_ajax_nopriv_live_tax_search', 'live_tax_search_callback');
  * @param int $post_id 投稿ID。
  * @return string 画像URL。
  */
-function get_search_result_image_url( $post_id ) {
+function get_search_result_image_url($post_id)
+{
     $image_url = false;
     $image_size = 'medium'; // フロントページで使用しているサイズに合わせる
 
     // 1. ACF: 'hero_image' フィールドから画像を取得
-    if ( function_exists( 'get_field' ) ) {
-        $hero_image = get_field( 'hero_image', $post_id );
+    if (function_exists('get_field')) {
+        $hero_image = get_field('hero_image', $post_id);
 
-        if ( $hero_image ) {
+        if ($hero_image) {
             // ACFフィールドの値が画像IDの場合 (推奨)
-            if ( is_numeric( $hero_image ) ) {
-                $image_array = wp_get_attachment_image_src( (int)$hero_image, $image_size );
+            if (is_numeric($hero_image)) {
+                $image_array = wp_get_attachment_image_src((int)$hero_image, $image_size);
                 $image_url = $image_array ? $image_array[0] : false;
             }
             // ACFフィールドの値が画像配列の場合
-            elseif ( is_array( $hero_image ) && ! empty( $hero_image['ID'] ) ) {
-                $image_array = wp_get_attachment_image_src( (int)$hero_image['ID'], $image_size );
+            elseif (is_array($hero_image) && ! empty($hero_image['ID'])) {
+                $image_array = wp_get_attachment_image_src((int)$hero_image['ID'], $image_size);
                 $image_url = $image_array ? $image_array[0] : false;
             }
             // ACFフィールドの値が画像URLの場合
-            elseif ( is_array( $hero_image ) && ! empty( $hero_image['url'] ) ) {
-                $image_url = esc_url( $hero_image['url'] );
+            elseif (is_array($hero_image) && ! empty($hero_image['url'])) {
+                $image_url = esc_url($hero_image['url']);
             }
         }
     }
 
     // 2. ACF画像が取得できなかった場合、アイキャッチ画像を取得
-    if ( ! $image_url && has_post_thumbnail( $post_id ) ) {
-        $image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $image_size );
+    if (! $image_url && has_post_thumbnail($post_id)) {
+        $image_array = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), $image_size);
         $image_url = $image_array ? $image_array[0] : false;
     }
 
     // 3. どちらもなかった場合、ダミー画像を設定
-    if ( ! $image_url ) {
+    if (! $image_url) {
         // フロントページで使用しているダミー画像のパスに置き換えてください
-        $image_url = get_template_directory_uri() . '/img/cards/dummy-300X200.png'; 
+        $image_url = get_template_directory_uri() . '/img/cards/dummy-300X200.png';
     }
 
     return $image_url;
@@ -211,7 +213,8 @@ function get_search_result_image_url( $post_id ) {
 /**
  * Ajax ライブ検索用コールバック
  */
-function live_tax_search_callback() {
+function live_tax_search_callback()
+{
     // ===== 1. キーワードを取得 =====
     $keyword = sanitize_text_field($_POST['keyword'] ?? '');
     if (empty($keyword)) {
@@ -235,18 +238,18 @@ function live_tax_search_callback() {
             $post_id = get_the_ID();
 
             $text = '';
-            if ( function_exists('get_field') ) {
+            if (function_exists('get_field')) {
                 // 投稿IDを指定して取得
                 $text = get_field('overview', $post_id);
-            
+
                 // それでも空なら get_post_meta で直接取得してみる
-                if ( empty($text) ) {
-                    $text = get_post_meta( $post_id, 'overview', true );
+                if (empty($text)) {
+                    $text = get_post_meta($post_id, 'overview', true);
                 }
             }
-            
+
             // 最終フォールバックは本文
-            if ( empty($text) ) {
+            if (empty($text)) {
                 $content = get_the_content();
                 $text = wp_strip_all_tags(strip_shortcodes($content));
             }
@@ -293,22 +296,22 @@ function live_tax_search_callback() {
                     $term_posts_query->the_post();
                     $post_id = get_the_ID();
 
-                    if ( function_exists('get_field') ) {
+                    if (function_exists('get_field')) {
                         // 投稿IDを指定して取得
                         $text = get_field('overview', $post_id);
-                    
+
                         // それでも空なら get_post_meta で直接取得してみる
-                        if ( empty($text) ) {
-                            $text = get_post_meta( $post_id, 'overview', true );
+                        if (empty($text)) {
+                            $text = get_post_meta($post_id, 'overview', true);
                         }
                     }
-                    
+
                     // 最終フォールバックは本文
-                    if ( empty($text) ) {
+                    if (empty($text)) {
                         $content = get_the_content();
                         $text = wp_strip_all_tags(strip_shortcodes($content));
                     }
-        
+
                     // 投稿IDの重複防止
                     if (!in_array($post_id, $post_ids)) {
                         $results[] = [
@@ -337,8 +340,10 @@ add_action('wp_ajax_nopriv_sf_live_search', 'live_tax_search_callback');
 
 
 // CPT UI 「eventpost」
-function create_eventpost_type() {
-    register_post_type('eventpost',
+function create_eventpost_type()
+{
+    register_post_type(
+        'eventpost',
         array(
             'labels' => array(
                 'name'          => 'イベント',
@@ -352,9 +357,3 @@ function create_eventpost_type() {
     );
 }
 add_action('init', 'create_eventpost_type');
-
-
-
-
-
-

@@ -72,8 +72,8 @@
             'current'   => max(1, get_query_var('paged')),
             'total'     => $the_query->max_num_pages,
             'mid_size'  => 2,
-            'prev_text' => '« 前へ',
-            'next_text' => '次へ »',
+            'prev_text' => '前へ',
+            'next_text' => '次へ',
             'type'      => 'array',
           ));
 

@@ -19,6 +19,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", "Noto Sans", sans-serif;
 }
 body {
   color: var(--color-main);

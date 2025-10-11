@@ -11,20 +11,25 @@
                         <?php
                         // メイン画像（優先順：ACF hero_image → アイキャッチ → 何もなし）
                         $hero = function_exists('get_field') ? get_field('hero_image') : null;
+                        $alt  = esc_attr(get_the_title());
+
                         if ($hero) {
                             // ACF: 画像ID or 配列どちらでもOKにする
-                            if (is_numeric($hero)) echo wp_get_attachment_image((int)$hero, 'large', false, ['class' => 'fv']);
-                            elseif (is_array($hero) && !empty($hero['ID'])) echo wp_get_attachment_image((int)$hero['ID'], 'large', false, ['class' => 'fv']);
-                            elseif (is_array($hero) && !empty($hero['url'])) echo '<img class="fv" src="' . esc_url($hero['url']) . '" alt="">';
+                            if (is_numeric($hero)) {
+                                echo wp_get_attachment_image((int)$hero, 'large', false, ['class' => 'fv', 'alt' => $alt]);
+                            } elseif (is_array($hero) && !empty($hero['ID'])) {
+                                echo wp_get_attachment_image((int)$hero['ID'], 'large', false, ['class' => 'fv', 'alt' => $alt]);
+                            } elseif (is_array($hero) && !empty($hero['url'])) {
+                                echo '<img class="fv" src="' . esc_url($hero['url']) . '" alt="' . $alt . '">';
+                            }
                         } elseif (has_post_thumbnail()) {
-                            the_post_thumbnail('large', ['class' => 'fv', 'alt' => esc_attr(get_the_title())]);
-                        }
-                        else {
-                            // ★ ACFもアイキャッチもない場合のダミー画像表示（ここを追加）
-                            echo '<img class="fv" src="' . esc_url(get_template_directory_uri() . '/img/cards/dummy-1920X1080.png') . '" alt="' . esc_attr(get_the_title()) . '">';
+                            the_post_thumbnail('large', ['class' => 'fv', 'alt' => $alt]);
+                        } else {
+                            // ★ ACFもアイキャッチもない場合のダミー画像表示
+                            echo '<img class="fv" src="' . esc_url(get_template_directory_uri() . '/img/cards/dummy-1920X1080.png') . '" alt="' . $alt . '">';
                         }
                         ?>
-                        </div>
+                    </div>
 
                     <div class="icons">
                         <!-- コメント -->
@@ -195,11 +200,13 @@
 
                                 if ($shot) {
                                     if (is_numeric($shot)) {
-                                        echo wp_get_attachment_image((int)$shot, 'xlarge');
+                                        echo wp_get_attachment_image((int)$shot, 'xlarge', false, ['alt' => get_the_title()]);
                                     } elseif (is_array($shot) && !empty($shot['ID'])) {
-                                        echo wp_get_attachment_image((int)$shot['ID'], 'xlarge');
+                                        echo wp_get_attachment_image((int)$shot['ID'], 'xlarge', false, ['alt' => get_the_title()]);
+                                    } elseif (is_array($shot) && !empty($shot['url'])) {
+                                        echo '<img src="' . esc_url($shot['url']) . '" alt="' . esc_attr(get_the_title()) . '">';
                                     } else {
-                                        echo '<img src="' . esc_url($shot) . '" alt="">';
+                                        echo '<img src="' . esc_url($shot) . '" alt="' . esc_attr(get_the_title()) . '">';
                                     }
                                 } else {
                                     echo '<p class="no-content">N/A</p>';

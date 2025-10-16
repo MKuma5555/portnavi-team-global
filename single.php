@@ -81,18 +81,29 @@
                             <!-- バッジ（カテゴリー/タグ/カスタムタクソノミー/tech_stack） -->
                             <ul class="tags">
                                 <?php
-                                // ここに表示したい順番で列挙（左→右に出ます）
+                                $post_id = get_the_ID();
+
+                                // 表示順
                                 $taxes = [
-                                    'tech_stack'   => 'tag-tech',   // 使用技術（既存）
-                                    'category'     => 'tag-cat',    // カテゴリー（標準）
-                                    'post_tag'     => 'tag-key',    // タグ（標準）
-                                    'site_type'    => 'tag-site',   // カスタム：サイト種別
-                                    'design_type'  => 'tag-design', // カスタム：デザイン種別
-                                    'color'        => 'tag-color',  // カスタム：カラー
+                                    'tech_stack'   => 'tag-tech',
+                                    'category'     => 'tag-cat',
+                                    'post_tag'     => 'tag-key',
+                                    'site_type'    => 'tag-site',
+                                    'design_type'  => 'tag-design',
+                                    'color'        => 'tag-color',
                                 ];
 
+                                // WPのデフォルトカテゴリID（通常「未分類」）
+                                $default_cat_id = (int) get_option('default_category');
+
                                 foreach ($taxes as $tax => $extra_class) {
-                                    $terms = get_the_terms(get_the_ID(), $tax);
+                                    $args = [];
+                                    if ($tax === 'category' && $default_cat_id > 0) {
+                                        $args['exclude'] = [$default_cat_id];
+                                    }
+
+                                    $terms = wp_get_post_terms($post_id, $tax, $args);
+
                                     if (!empty($terms) && !is_wp_error($terms)) {
                                         foreach ($terms as $term) {
                                             echo '<li><span class="tag ' . esc_attr($extra_class) . '" data-tax="' . esc_attr($tax) . '">' . esc_html($term->name) . '</span></li>';

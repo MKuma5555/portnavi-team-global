@@ -41,7 +41,7 @@ foreach ( $custom_taxonomies as $tax ) {
     if ( $term ) {
         $tax_posts = get_posts([
             'post_type' => 'post',
-            'posts_per_page' => 10,
+            'posts_per_page' => -1,
             'tax_query' => [
                 [
                     'taxonomy' => $tax,
@@ -59,7 +59,7 @@ foreach ( $custom_taxonomies as $tax ) {
         $post_args = [
             'post_type' => 'post',
             's' => $query,
-            'posts_per_page' => 10,
+            'posts_per_page' => -1,
         ];
         $post_query = new WP_Query($post_args);
         if ( $post_query->have_posts() ) {
@@ -72,7 +72,7 @@ foreach ( $custom_taxonomies as $tax ) {
         if ($cat) {
             $cat_posts = get_posts([
                 'post_type' => 'post',
-                'posts_per_page' => 10,
+                'posts_per_page' => -1,
                 'tax_query' => [
                     [
                         'taxonomy' => 'category',
@@ -89,7 +89,7 @@ foreach ( $custom_taxonomies as $tax ) {
         if ($tag) {
             $tag_posts = get_posts([
                 'post_type' => 'post',
-                'posts_per_page' => 10,
+                'posts_per_page' => -1,
                 'tax_query' => [
                     [
                         'taxonomy' => 'post_tag',

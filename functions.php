@@ -339,6 +339,17 @@ add_action('wp_ajax_sf_live_search', 'live_tax_search_callback');
 add_action('wp_ajax_nopriv_sf_live_search', 'live_tax_search_callback');
 
 
+// カテゴリー検索のチェックボックスから→taxonomy.phpでのページ数の表示用（タクソノミーアーカイブページで、posts_per_pageを-1（全件）に設定する）
+function set_all_posts_for_taxonomy_archive( $query ) {
+    if ( !is_admin() && $query->is_main_query() && ( $query->is_tax() || $query->is_category() || $query->is_tag() ) ) {     
+        // posts_per_page を -1 に設定して全件表示
+        $query->set( 'posts_per_page', -1 );
+    }
+}
+add_action( 'pre_get_posts', 'set_all_posts_for_taxonomy_archive' );
+
+
+
 // CPT UI 「eventpost」
 function create_eventpost_type()
 {

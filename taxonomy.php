@@ -33,8 +33,10 @@ $paged   = max(1, (int) get_query_var('paged'));
             <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
                     <li class="card-container">
+                    <a href="<?php the_permalink(); ?>">
+
                         <div class="card">
-                        <a href="<?php the_permalink(); ?>">
+                       
                         <!-- <?php if ( has_post_thumbnail() ) : ?>
                         <?php the_post_thumbnail( 'medium', array( 'class' => 'card-image' ) ); ?>
                         <?php endif; ?> -->
@@ -79,9 +81,8 @@ $paged   = max(1, (int) get_query_var('paged'));
 
                             <div class="card-body">
                                 <div class="card-top">
-                                    <a href="<?php the_permalink(); ?>">
                                         <h3 class="card-title"><?php the_title(); ?></h3>
-                                    </a>
+                                  
                                     <ul class="card-tags">
                                     <?php
                       // //タクソノミーで作成しているカテゴリーとタグ等
@@ -142,6 +143,7 @@ $paged   = max(1, (int) get_query_var('paged'));
                         </div>
                             </div><!-- /.card-body -->
                         </div><!-- /.card -->
+                        </a>    
                     </li>
                 <?php endwhile; ?>
             <?php else : ?>

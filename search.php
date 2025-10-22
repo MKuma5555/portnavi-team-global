@@ -109,8 +109,9 @@ foreach ( $custom_taxonomies as $tax ) {
                 setup_postdata($post);
                 ?>
             <li class="card-container">
+            <a href="<?php the_permalink(); ?>">
                 <div class="card">  
-                <a href="<?php the_permalink(); ?>">
+                
                         <!-- <?php if ( has_post_thumbnail() ) : ?>
                         <?php the_post_thumbnail( 'medium', array( 'class' => 'card-image' ) ); ?>
                         <?php endif; ?> -->
@@ -152,13 +153,11 @@ foreach ( $custom_taxonomies as $tax ) {
                     <?php
                 }
                 ?>
-                    </a>
+                
 
                     <div class="card-body">
                         <div class="card-top">
-                        <a href="<?php the_permalink(); ?>">
                             <h3 class="card-title"><?php the_title(); ?></h3>
-                        </a>
                         <ul class="card-tags">
                          <?php
                       // //タクソノミーで作成しているカテゴリーとタグ等
@@ -216,6 +215,7 @@ foreach ( $custom_taxonomies as $tax ) {
                         </div>
                     </div>
                 </div>
+                </a>
             </li>
         <?php
 }

@@ -25,7 +25,7 @@
       </div>
 
       <div class="share-link-box">
-        <input type="text" id="shareLink" readonly value="<?php echo esc_url((is_singular() ? get_permalink() : home_url(add_query_arg(null, null)))); ?>">
+        <input type="text" id="shareLink" readonly value="<?php echo esc_url((is_singular() ? get_permalink() : home_url(add_query_arg(array())))); ?>">
         <button id="copyBtn">コピー</button>
       </div>
 
